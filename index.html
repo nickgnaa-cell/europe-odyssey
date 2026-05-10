@@ -338,8 +338,8 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
 .day-date{font-size:.8rem;font-weight:600;letter-spacing:.08em;color:#6E8FA8;margin-bottom:.35rem}
 .day-title{font-family:'Cormorant Garamond',serif;font-size:1.55rem;line-height:1.05;color:#091D35;margin-bottom:.35rem}
 .day-body{font-size:.88rem;line-height:1.55;color:#3A526A}
-.version-stamp{display:inline-flex;align-items:center;gap:.4rem;margin-top:.9rem;padding:.35rem .7rem;border:1px solid rgba(201,168,76,.35);border-radius:999px;background:rgba(255,255,255,.08);color:#fff;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase}
-@media (max-width:768px){.today-tomorrow-wrap{grid-template-columns:1fr}.version-stamp{margin-top:.5rem}}
+.version-stamp{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .7rem;border:1px solid rgba(201,168,76,.6);border-radius:999px;background:rgba(255,255,255,.98);color:#091D35;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase}
+@media (max-width:768px){.today-tomorrow-wrap{grid-template-columns:1fr}}
 
 </style>
 </head>
@@ -399,6 +399,32 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
 <span class="route-city">Adelaide</span><span class="route-arrow">→</span><span class="route-city">Singapore</span><span class="route-arrow">→</span><span class="route-city">Milan</span><span class="route-arrow">→</span><span class="route-city">Zagreb</span><span class="route-arrow">→</span><span class="route-city">Croatia Cruise</span><span class="route-arrow">→</span><span class="route-city">Bilbao</span><span class="route-arrow">→</span><span class="route-city">Bordeaux</span><span class="route-arrow">→</span><span class="route-city">Épernay</span><span class="route-arrow">→</span><span class="route-city">Antibes</span><span class="route-arrow">→</span><span class="route-city">Naples</span><span class="route-arrow">→</span><span class="route-city">Ischia</span><span class="route-arrow">→</span><span class="route-city">Monopoli</span><span class="route-arrow">→</span><span class="route-city">Rome</span><span class="route-arrow">→</span><span class="route-city">Madrid</span><span class="route-arrow">→</span><span class="route-city">Hong Kong</span><span class="route-arrow">→</span><span class="route-city">Adelaide</span>
 </div>
 </div>
+
+<section id="today-tomorrow" style="background:#f8f7f4;padding:2.5rem 0 4rem;">
+  <div class="section-inner" style="padding-top:0;">
+    <div class="section-header reveal">
+      <div class="chapter-label">Today / Tomorrow</div>
+      <h2 class="section-title">What’s Next</h2>
+      <p class="section-desc">A compact next-step view placed below the homepage hero, so the opening aesthetics stay intact.</p>
+    </div>
+    <div class="today-tomorrow-wrap">
+      <div class="day-card">
+        <div class="day-kicker">Today</div>
+        <div class="day-date" id="todayDate"></div>
+        <div class="day-title" id="todayDest">Singapore</div>
+        <div class="day-body" id="todayBody">Arrival day · Crowne Plaza Changi · Transit rest</div>
+      </div>
+      <div class="day-card">
+        <div class="day-kicker">Tomorrow</div>
+        <div class="day-date" id="tomorrowDate"></div>
+        <div class="day-title" id="tomorrowDest">Milan</div>
+        <div class="day-body" id="tomorrowBody">Fly onward · NYX Hotel Milan · Duomo / Brera</div>
+      </div>
+    </div>
+    <div class="version-stamp" style="margin-top:1rem;color:#091D35;background:#fff;">Updated · <span id="versionStamp">GitHub upload · 2026-05-10</span></div>
+  </div>
+</section>
+
 <section id="overview">
 <div class="section-inner">
 <div class="section-header reveal">
@@ -1480,9 +1506,17 @@ updateCountdown();
 </section>
 
 <script>
-  const APP_VERSION = 'GitHub upload · 2026-05-10';
+(function(){
+  const fmt = new Intl.DateTimeFormat('en-AU', { day:'numeric', month:'long', year:'numeric' });
+  const today = new Date();
+  const tomorrow = new Date(today.getTime() + 86400000);
+  const t1 = document.getElementById('todayDate');
+  const t2 = document.getElementById('tomorrowDate');
+  if (t1) t1.textContent = fmt.format(today);
+  if (t2) t2.textContent = fmt.format(tomorrow);
   const stamp = document.getElementById('versionStamp');
-  if (stamp) stamp.textContent = APP_VERSION;
+  if (stamp) stamp.textContent = 'GitHub upload · 2026-05-10';
+})();
 </script>
 
 </body>
