@@ -1,9 +1,9 @@
 {
   "name": "European Odyssey 2026",
-  "short_name": "Odyssey 2026",
+  "short_name": "Odyssey",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#091D35",
   "theme_color": "#091D35",
-  "icons": []
+  "background_color": "#F8F7F4"
 }

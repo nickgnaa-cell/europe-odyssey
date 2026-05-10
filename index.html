@@ -5,14 +5,6 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>European Odyssey 2026 | Nicola &amp; Donna Giannetta</title>
-
-<meta name="theme-color" content="#091D35"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-title" content="Odyssey 2026"/>
-<meta name="format-detection" content="telephone=no"/>
-<link rel="manifest" href="./manifest.webmanifest"/>
-
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&amp;family=Jost:wght@300;400;500;600&amp;family=Playfair+Display:ital,wght@0,700;1,400&amp;display=swap" rel="stylesheet"/>
 <style>
@@ -339,207 +331,6 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
   }
 }
 
-
-
-/* Enhancement layer: preserves original layout while improving iPhone use */
-:root {
-  --nav-height: 60px;
-  --safe-top: env(safe-area-inset-top, 0px);
-  --safe-right: env(safe-area-inset-right, 0px);
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
-  --safe-left: env(safe-area-inset-left, 0px);
-}
-html { scroll-padding-top: calc(var(--nav-height) + var(--safe-top) + 8px); }
-body { padding-top: var(--safe-top); }
-a { word-break: break-word; }
-nav {
-  padding-top: max(0px, var(--safe-top));
-  padding-left: max(1rem, calc(3rem + var(--safe-left)));
-  padding-right: max(1rem, calc(3rem + var(--safe-right)));
-  min-height: calc(var(--nav-height) + var(--safe-top));
-}
-section { scroll-margin-top: calc(var(--nav-height) + var(--safe-top) + 8px); }
-.hero { min-height: min(100svh, 900px); }
-.hero-content, .phase-hero-content {
-  padding-left: max(1.5rem, calc(6rem + var(--safe-left)));
-  padding-right: max(1.5rem, calc(6rem + var(--safe-right)));
-}
-.route-banner { padding-left: max(1.25rem, calc(6rem + var(--safe-left))); padding-right: max(1.25rem, calc(6rem + var(--safe-right))); }
-.section-inner, .phase-body, footer {
-  padding-left: max(1.25rem, calc(3rem + var(--safe-left)));
-  padding-right: max(1.25rem, calc(3rem + var(--safe-right)));
-}
-.table-wrap, .glance-table-wrap, .bookings-table-wrap, .info-table-wrap {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  border-radius: 10px;
-}
-.today-panel {
-  background: linear-gradient(180deg, rgba(9,29,53,0.98) 0%, rgba(22,50,79,0.98) 100%);
-  color: #fff;
-  border-top: 1px solid rgba(168,130,30,0.22);
-  border-bottom: 1px solid rgba(168,130,30,0.22);
-}
-.today-shell {
-  max-width: 1160px;
-  margin: 0 auto;
-  padding: 2rem 3rem;
-}
-.today-grid {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 1.5rem;
-  align-items: start;
-}
-.today-card {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
-  padding: 1.25rem;
-  backdrop-filter: blur(8px);
-}
-.today-card h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--gold-light);
-  margin-bottom: 0.5rem;
-}
-.today-meta, .today-card p, .today-list li {
-  color: rgba(255,255,255,0.82);
-  line-height: 1.65;
-  font-size: 0.95rem;
-}
-.today-list { list-style: none; display: grid; gap: 0.65rem; }
-.today-list li { padding-left: 1rem; position: relative; }
-.today-list li::before { content: '•'; color: var(--gold-light); position: absolute; left: 0; }
-.today-kicker {
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--gold-light);
-  margin-bottom: 0.75rem;
-}
-.today-inline-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
-.today-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.55rem 0.8rem;
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 999px;
-  color: #fff;
-  text-decoration: none;
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  background: rgba(255,255,255,0.05);
-}
-.today-chip:hover { background: rgba(255,255,255,0.12); }
-.offline-indicator {
-  position: fixed;
-  left: 50%;
-  bottom: calc(1rem + var(--safe-bottom));
-  transform: translateX(-50%);
-  z-index: 140;
-  background: rgba(9,29,53,0.94);
-  color: #fff;
-  border: 1px solid rgba(168,130,30,0.35);
-  border-radius: 999px;
-  padding: 0.65rem 0.9rem;
-  font-size: 0.76rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .2s ease;
-}
-.offline-indicator.show { opacity: 1; }
-.mobile-jumpbar {
-  display: none;
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 130;
-  padding: 0.6rem max(0.8rem, var(--safe-right)) calc(0.6rem + var(--safe-bottom)) max(0.8rem, var(--safe-left));
-  background: rgba(9,29,53,0.97);
-  backdrop-filter: blur(14px);
-  border-top: 1px solid rgba(168,130,30,0.25);
-}
-.mobile-jumpbar nav {
-  position: static;
-  min-height: 0;
-  height: auto;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  backdrop-filter: none;
-  box-shadow: none !important;
-}
-.mobile-jumpbar-list {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0,1fr));
-  gap: 0.35rem;
-}
-.mobile-jumpbar-list a {
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  text-decoration: none;
-  color: rgba(255,255,255,0.8);
-  font-size: 0.64rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border-radius: 12px;
-  padding: 0.4rem 0.25rem;
-}
-.mobile-jumpbar-list a:active,
-.mobile-jumpbar-list a:hover { background: rgba(255,255,255,0.1); color: var(--gold-light); }
-@media (max-width: 900px) {
-  .today-grid { grid-template-columns: 1fr; }
-}
-@media (max-width: 768px) {
-  body { padding-bottom: calc(84px + var(--safe-bottom)); }
-  nav {
-    padding-left: max(1rem, calc(1rem + var(--safe-left)));
-    padding-right: max(1rem, calc(1rem + var(--safe-right)));
-  }
-  .hero { min-height: 100svh; }
-  .hero-content {
-    padding-left: max(1.25rem, calc(1.25rem + var(--safe-left)));
-    padding-right: max(1.25rem, calc(1.25rem + var(--safe-right)));
-    padding-bottom: 3rem;
-  }
-  .hero-title { font-size: clamp(2.6rem, 11vw, 4rem); }
-  .hero-sub { font-size: 0.82rem; line-height: 1.5; }
-  .hero-stats { gap: 1rem; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); }
-  .hero-scroll { display: none; }
-  .route-banner {
-    padding-left: max(1rem, calc(1rem + var(--safe-left)));
-    padding-right: max(1rem, calc(1rem + var(--safe-right)));
-  }
-  .section-inner, .phase-body, footer {
-    padding-left: max(1rem, calc(1rem + var(--safe-left)));
-    padding-right: max(1rem, calc(1rem + var(--safe-right)));
-  }
-  .glance-table, .bookings-table, .info-table { min-width: 680px; }
-  .critical-grid, .contacts-grid { grid-template-columns: 1fr; }
-  .today-shell {
-    padding-left: max(1rem, calc(1rem + var(--safe-left)));
-    padding-right: max(1rem, calc(1rem + var(--safe-right)));
-  }
-  .today-card { padding: 1rem; }
-  .mobile-jumpbar { display: block; }
-}
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .hero-bg, .reveal { transition: none !important; animation: none !important; }
-}
-
 </style>
 </head>
 <body>
@@ -598,33 +389,6 @@ section { scroll-margin-top: calc(var(--nav-height) + var(--safe-top) + 8px); }
 <span class="route-city">Adelaide</span><span class="route-arrow">→</span><span class="route-city">Singapore</span><span class="route-arrow">→</span><span class="route-city">Milan</span><span class="route-arrow">→</span><span class="route-city">Zagreb</span><span class="route-arrow">→</span><span class="route-city">Croatia Cruise</span><span class="route-arrow">→</span><span class="route-city">Bilbao</span><span class="route-arrow">→</span><span class="route-city">Bordeaux</span><span class="route-arrow">→</span><span class="route-city">Épernay</span><span class="route-arrow">→</span><span class="route-city">Antibes</span><span class="route-arrow">→</span><span class="route-city">Naples</span><span class="route-arrow">→</span><span class="route-city">Ischia</span><span class="route-arrow">→</span><span class="route-city">Monopoli</span><span class="route-arrow">→</span><span class="route-city">Rome</span><span class="route-arrow">→</span><span class="route-city">Madrid</span><span class="route-arrow">→</span><span class="route-city">Hong Kong</span><span class="route-arrow">→</span><span class="route-city">Adelaide</span>
 </div>
 </div>
-<section class="today-panel" id="today-view">
-  <div class="today-shell">
-    <div class="today-kicker">Today view</div>
-    <div class="today-grid">
-      <article class="today-card">
-        <h3>At-a-glance travel dashboard</h3>
-        <p class="today-meta">This panel is now built into the main itinerary so the daily focus can be checked quickly on iPhone without opening a separate document.</p>
-        <ul class="today-list">
-          <li>Use the bottom jump bar on iPhone to move between Overview, Destinations, Bookings, Flights and Checklist.</li>
-          <li>All original Google Maps, booking and Drive links remain untouched in the document.</li>
-          <li>Offline support is enabled after the first load so the itinerary shell stays available when signal is weak.</li>
-        </ul>
-      </article>
-      <article class="today-card">
-        <h3>Quick actions</h3>
-        <p>Open the most-used sections fast while keeping the original structure and photos exactly as they were.</p>
-        <div class="today-inline-actions">
-          <a class="today-chip" href="#overview">Overview</a>
-          <a class="today-chip" href="#phases">Destinations</a>
-          <a class="today-chip" href="#bookings">Bookings</a>
-          <a class="today-chip" href="#flights">Flights</a>
-          <a class="today-chip" href="#checklist">Checklist</a>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
 <section id="overview">
 <div class="section-inner">
 <div class="section-header reveal">
@@ -639,7 +403,7 @@ section { scroll-margin-top: calc(var(--nav-height) + var(--safe-top) + 8px); }
 <div class="stat-cell"><div class="stat-num">13</div><div class="stat-lbl">Nights at Sea</div></div>
 </div>
 <div class="reveal" style="overflow-x:auto">
-<div class="glance-table-wrap table-wrap"><table class="glance-table">
+<table class="glance-table">
 <thead><tr><th>Dates</th><th>Destination</th><th>Nights</th><th>Accommodation &amp; Reference</th><th>Priority Focus</th></tr></thead>
 <tbody>
 <tr><td>14–15 Aug</td><td>Singapore</td><td>1</td><td>Crowne Plaza Changi <a class="b-ref" href="https://www.google.com/maps/place/Crowne+Plaza+Changi+Airport+by+IHG/@1.3585609,103.9830963,1016m/data=!3m2!1e3!5s0x31da3c8c77d1b0bf:0xf4fa38bf212ec3bd!4m10!3m9!1s0x31da3c936a9124bf:0x74a0170f1cc50445!5m3!1s2026-04-01!4m1!1i2!8m2!3d1.3585609!4d103.9879672!16s%2Fg%2F1q673lpyv?entry=ttu&amp;g_ep=EgoyMDI2MDMyMy4xIKXMDSoASAFQAw%3D%3D" target="_blank">📍</a> <span class="ref-code">68980327</span> <a class="b-ref" href="https://drive.google.com/file/d/1birMblY7tbP9F-N4jvSrwXF9lFQtfziM/view?usp=drive_link" style="margin-left:10px;" target="_blank">🔑 Booking</a></td><td>Transit rest</td></tr>
@@ -661,7 +425,7 @@ section { scroll-margin-top: calc(var(--nav-height) + var(--safe-top) + 8px); }
 </table>
 <div class="detail-block" style="margin-top:2rem;">
 <div class="detail-label">Car Hire – Monopoli (Local Day Use)</div>
-<div class="info-table-wrap table-wrap"><table class="info-table">
+<table class="info-table">
 <tr><td>Provider</td><td>GO!RENT (Monopoli Station)</td></tr>
 <tr>
   <td>Location</td>
@@ -806,7 +570,7 @@ background-repeat: no-repeat;"></div>
 <div class="phase-grid reveal">
 <div class="detail-block">
 <div class="detail-label">Accommodation</div>
-<div class="info-table-wrap table-wrap"><table class="info-table">
+<table class="info-table">
 <tr><td>Hotel</td><td>NYX Hotel Milan <a class="b-ref" href="https://www.google.com/maps/search/?api=1&amp;query=NYX+Hotel+Milan+by+Leonardo+Hotels" target="_blank">📍</a> by Leonardo Hotels</td></tr>
 <tr><td>Address</td><td>Piazza IV Novembre 3, Milan, Italy</td></tr>
 <tr><td>Room</td><td>Double · High floor, quiet</td></tr>
@@ -818,7 +582,7 @@ background-repeat: no-repeat;"></div>
 </div>
 <div class="detail-block">
 <div class="detail-label">Confirmed Activity — 16 August</div>
-<div class="info-table-wrap table-wrap"><table class="info-table">
+<table class="info-table">
 <tr><td>Tour</td><td>Milan Duomo Rooftop &amp; Cathedral Guided Tour</td></tr>
 <tr><td>Time</td><td>14:15 – 16:45</td></tr>
 <tr><td>Type</td><td>Skip-the-line · Interior + rooftop by elevator</td></tr>
@@ -847,7 +611,7 @@ background-repeat: no-repeat;"></div>
 <div class="phase-grid reveal">
 <div class="detail-block">
 <div class="detail-label">Pre-Cruise: Zagreb (17–19 August)</div>
-<div class="info-table-wrap table-wrap"><table class="info-table">
+<table class="info-table">
 <tr><td>Hotel</td><td>Art'otel Zagreb <a class="b-ref" href="https://www.google.com/maps/place/art'otel+Zagreb,+Powered+by+Radisson+Hotels/@45.8115705,15.9797011,708m/data=!3m2!1e3!4b1!4m9!3m8!1s0x4765d71dfd50abb9:0x1e01b8e6ca5bf40d!5m2!4m1!1i2!8m2!3d45.8115705!4d15.9797011!16s%2Fg%2F11stdt7_z5?entry=ttu&amp;g_ep=EgoyMDI2MDMyMy4xIKXMDSoASAFQAw%3D%3D" target="_blank">📍</a> (Radisson Group)</td></tr>
 <tr><td>Room</td><td>King/Queen · Nick &amp; Donna Giannetta</td></tr>
 <tr><td>Rate</td><td>~AUD 350/room/night including breakfast &amp; city tax</td></tr>
@@ -857,7 +621,7 @@ background-repeat: no-repeat;"></div>
 </div>
 <div class="detail-block">
 <div class="detail-label">Croatia Yacht Cruise (19 Aug – 1 Sep)</div>
-<div class="info-table-wrap table-wrap"><table class="info-table">
+<table class="info-table">
 <tr><td>Vessel</td><td>Lady Eleganza</td></tr>
 <tr><td>Embarkation</td><td>Rovinj Harbour · 19 August 2026 · Morning group transfer</td></tr>
 <tr><td>Disembarkation</td><td>Dubrovnik · 1 September 2026 · Flights after 10:00 AM</td></tr>
@@ -886,7 +650,7 @@ background-repeat: no-repeat;"></div>
 <div class="phase-grid reveal">
 <div class="detail-block">
 <div class="detail-label">Accommodation</div>
-<div class="info-table-wrap table-wrap"><table class="info-table">
+<table class="info-table">
 <tr><td>Hotel</td><td>Catalonia Gran Vía Bilbao <a class="b-ref" href="https://www.google.com/maps/place/Catalonia+Gran+V%C3%ADa+Bilbao/@43.2641769,-2.9464185,1047m/data=!3m1!1e3!4m10!3m9!1s0xd4e50266e6edee5:0x8bc0cde41611a44a!5m3!1s2026-04-01!4m1!1i2!8m2!3d43.2644133!4d-2.9418821!16s%2Fg%2F11r2cw1n9f?entry=ttu&amp;g_ep=EgoyMDI2MDMyMy4xIKXMDSoASAFQAw%3D%3D" target="_blank">📍</a></td></tr>
 <tr><td>Room</td><td>Deluxe Terrace Junior Suite · Bed &amp; Breakfast</td></tr>
 <tr><td>Rate</td><td>€934.65 payable at hotel</td></tr>
@@ -897,7 +661,7 @@ background-repeat: no-repeat;"></div>
 </div>
 <div class="detail-block">
 <div class="detail-label">Activities</div>
-<div class="info-table-wrap table-wrap"><table class="info-table">
+<table class="info-table">
 <tr><td>2 Sep · E-Bike Tour</td><td>Bilbao Highlights · 10:30–13:30 · Ref: GYGZGZ97MHQ6 </td></tr>
 <tr><td>3 Sep · Guggenheim VIP</td><td>Expert-led small group · 10:00–12:00 · A$324.02 for 2</td></tr>
 <tr><td>Guggenheim Ref</td><td class="mono">GetYourGuide · GYG83XN2XBNH</td></tr>
@@ -925,7 +689,7 @@ background-repeat: no-repeat;"></div>
 <div class="phase-grid reveal">
 <div class="detail-block">
 <div class="detail-label">Bordeaux: Hotel 56 – Paludate (4–8 Sep · 4 Nights)</div>
-<div class="info-table-wrap table-wrap"><table class="info-table">
+<table class="info-table">
 <tr><td>Address</td><td><a class="b-ref" href="https://www.google.com/maps/search/?api=1&amp;query=Hotel+56%2C+56+Quai+de+Paludate%2C+33800+Bordeaux%2C+France" target="_blank">📍</a> 56 Quai de Paludate, 33063 Bordeaux</td></tr>
 <tr><td>Room</td><td>Superior Double – Garonne River View · High floor requested</td></tr>
 <tr><td>Rate</td><td>EUR 757 total · City tax EUR 29.92 payable at hotel</td></tr>
@@ -940,7 +704,7 @@ background-repeat: no-repeat;"></div>
 </div>
 <div class="detail-block">
 <div class="detail-label">Épernay: Bubble 8 (8–11 Sep · 3 Nights)</div>
-<div class="info-table-wrap table-wrap"><table class="info-table">
+<table class="info-table">
 <tr><td>Address</td><td><a class="b-ref" href="https://www.google.com/maps/search/?api=1&amp;query=Bubble+8+Epernay" target="_blank">📍</a> 8 Rue Gambetta, 51200 Épernay</td></tr>
 <tr><td>Location</td><td>Central Épernay · Avenue de Champagne</td></tr>
 <tr><td>Dates</td><td>8 Sep (15:00) → 11 Sep (11:00)</td></tr>
@@ -972,7 +736,7 @@ background-repeat: no-repeat;"></div>
 <div class="phase-grid reveal">
 <div class="detail-block">
 <div class="detail-label">Accommodation</div>
-<div class="info-table-wrap table-wrap"><table class="info-table">
+<table class="info-table">
 <tr><td>Hotel</td><td>La Villa Cap d'Antibes <a class="b-ref" href="https://www.google.com/maps/place/H%C3%B4tel+La+Villa+Cap+d'Antibes/@43.5646834,7.1177707,737m/data=!3m1!1e3!4m10!3m9!1s0x12ce7f8953121213:0xd021bfe00f1bdbb1!5m3!1s2026-03-28!4m1!1i2!8m2!3d43.5646834!4d7.1203456!16s%2Fg%2F1twt3rq3?entry=ttu&amp;g_ep=EgoyMDI2MDMyMy4xIKXMDSoASAFQAw%3D%3D" target="_blank">📍</a></td></tr>
 <tr><td>Room</td><td>Junior Suite · 32 sqm · Balcony &amp; pool view</td></tr>
 <tr><td>Rate</td><td>€2,022.84 total · City tax €27.84 payable at hotel</td></tr>
@@ -983,7 +747,7 @@ background-repeat: no-repeat;"></div>
 </div>
 <div class="detail-block">
 <div class="detail-label">Onward: Nice → Naples (15 September)</div>
-<div class="info-table-wrap table-wrap"><table class="info-table">
+<table class="info-table">
 <tr><td>Flight</td><td>easyJet EJU4192</td></tr>
 <tr><td>Route</td><td><a class="b-ref" href="https://drive.google.com/file/d/1UV8EU7xgiEcaqD4t8Db9eMeyYQosMRUD/view?usp=drive_link" target="_blank">📄 Nic</a> / <a class="b-ref" href="https://drive.google.com/file/d/1UV8EU7xgiEcaqD4t8Db9eMeyYQosMRUD/view?usp=drive_link" target="_blank">📄 Donna</a></td></tr>
 <tr><td>Seats</td><td>8A / 8C</td></tr>
@@ -1013,7 +777,7 @@ background-repeat: no-repeat;"></div>
 <div class="phase-grid reveal">
 <div class="detail-block">
 <div class="detail-label">Naples: Grand Hotel Santa Lucia (15–18 Sep)</div>
-<div class="info-table-wrap table-wrap"><table class="info-table">
+<table class="info-table">
 <tr><td>Location</td><td><a class="b-ref" href="https://www.google.com/maps/search/?api=1&amp;query=Grand+Hotel+Santa+Lucia+Napoli" target="_blank">📍</a> Via Partenope · Absolute seafront facing Castel dell'Ovo</td></tr>
 <tr><td>Dates</td><td>15 Sep (15:00) → 18 Sep (11:00) · 3 nights</td></tr>
 <tr><td>Ferry Access</td><td>Walking distance to Napoli Porta di Massa (ferry terminal)</td></tr>
@@ -1037,7 +801,7 @@ background-repeat: no-repeat;"></div>
 </div>
 <div class="detail-block">
 <div class="detail-label">Ischia: Hotel MareBlu (18–25 Sep · 7 Nights)</div>
-<div class="info-table-wrap table-wrap"><table class="info-table">
+<table class="info-table">
 <tr><td>Address</td><td><a class="b-ref" href="https://www.google.com/maps/search/?api=1&amp;query=Hotel+MareBlu+Ischia" target="_blank">📍</a> Via Pontano, Ischia Porto · 4-star beachfront</td></tr>
 <tr><td>Room</td><td>Double · Sea-facing</td></tr>
 <tr><td>Facilities</td><td>Outdoor &amp; indoor thermal pools · Direct beach access · Spa</td></tr>
@@ -1046,7 +810,7 @@ background-repeat: no-repeat;"></div>
 </div>
 <div class="detail-block">
 <div class="detail-label">Monopoli: Al Console Luxury Suite (25 Sep–2 Oct · 7 Nights)</div>
-<div class="info-table-wrap table-wrap"><table class="info-table">
+<table class="info-table">
 <tr><td>Address</td><td><a class="b-ref" href="https://www.google.com/maps/search/?api=1&amp;query=Al+Console+Luxury+Suite+Monopoli" target="_blank">📍</a> Via Porto 16, Monopoli · Centro Storico waterfront</td></tr>
 <tr><td>Room</td><td>King Suite with Sea View · Breakfast included</td></tr>
 <tr><td>Location</td><td>Prime old-town waterfront · ~15 min walk to train station</td></tr>
@@ -1098,7 +862,7 @@ background-repeat: no-repeat;"></div>
 <div class="phase-grid reveal">
 <div class="detail-block">
 <div class="detail-label">Rome: The Republic Hotel (8–11 Oct · 3 Nights)</div>
-<div class="info-table-wrap table-wrap"><table class="info-table">
+<table class="info-table">
 <tr><td>Address</td><td><a class="b-ref" href="https://www.google.com/maps/place/The+Republic+Hotel/@41.9040914,12.4971534,756m/data=!3m1!1e3!4m10!3m9!1s0x132f61a722722271:0xf746d068f6ad01ab!5m3!1s2026-04-01!4m1!1i2!8m2!3d41.9040914!4d12.4997283!16s%2Fg%2F11gghf2kb8?entry=ttu&amp;g_ep=EgoyMDI2MDMyMy4xIKXMDSoASAFQAw%3D%3D" target="_blank">📍</a> Via Gaeta 61, 00185 Rome · Termini district</td></tr>
 <tr><td>Rate</td><td>EUR 812.51 · City tax €7.50/person/night payable at hotel</td></tr>
 <tr><td>Check-in/out</td><td>From 15:00 · By 11:00</td></tr>
@@ -1108,7 +872,7 @@ background-repeat: no-repeat;"></div>
 </div>
 <div class="detail-block">
 <div class="detail-label">9 October — Food &amp; Bike Tour, Testaccio</div>
-<div class="info-table-wrap table-wrap"><table class="info-table">
+<table class="info-table">
 <tr><td>Host</td><td>Luca Cardente · foodiesofrome · @foodiesofrome</td></tr>
 <tr><td>Contact</td><td>+39 338 2123102 · WhatsApp or calls</td></tr>
 <tr><td>Meeting Point</td><td><a class="b-ref" href="https://www.google.com/maps/search/?api=1&query=ASD+Bici+Club+Testaccio,+Ex+Mattatoio,+Rome,+Italy" target="_blank">📍</a> ASD Bici Club Testaccio, Ex Mattatoio, Testaccio</td></tr>
@@ -1117,7 +881,7 @@ background-repeat: no-repeat;"></div>
 </div>
 <div class="detail-block">
 <div class="detail-label">Madrid: Catalonia Puerta del Sol (11–13 Oct)</div>
-<div class="info-table-wrap table-wrap"><table class="info-table">
+<table class="info-table">
 <tr><td>Location</td><td><a class="b-ref" href="https://www.google.com/maps/place/Hotel+Catalonia+Puerta+Del+Sol/@40.414026,-3.7054392,774m/data=!3m1!1e3!4m10!3m9!1s0xd42287fe031bd2f:0xa0935367d9e1cb73!5m3!1s2026-03-28!4m1!1i2!8m2!3d40.414026!4d-3.7028643!16s%2Fg%2F12hm1785z?entry=ttu&amp;g_ep=EgoyMDI2MDMyMy4xIKXMDSoASAFQAw%3D%3D" target="_blank">📍</a> Puerta del Sol · Barrio de las Letras</td></tr>
 <tr><td>Room</td><td>Double Room with Views of Atocha Street</td></tr>
 <tr><td>Includes</td><td>Unlimited buffet breakfast · Wi-Fi</td></tr>
@@ -1146,7 +910,7 @@ background-repeat: no-repeat;"></div>
 <div class="phase-grid reveal">
 <div class="detail-block">
 <div class="detail-label">Return Flights</div>
-<div class="info-table-wrap table-wrap"><table class="info-table">
+<table class="info-table">
 <tr><td>13 Oct · EK144</td><td>Madrid MAD (T4S) 22:05 → Dubai DXB 07:10+1 · Business · Ref: DPR359</td></tr>
 <tr><td>14 Oct · EK380</td><td><a class="b-ref" href="https://drive.google.com/file/d/1-LJjsH7136l6kPGAMw-T5VZ5cifd7CfW/view?usp=drive_link" target="_blank">📄 Nic</a> / <a class="b-ref" href="https://drive.google.com/file/d/1Tj558SfWIt6VLF6nVCo_HVuX0g7WzgEz/view?usp=drive_link" target="_blank">📄 Donna</a></td></tr>
 <tr><td>15 Oct · CX143</td><td><a class="b-ref" href="https://drive.google.com/file/d/1-LJjsH7136l6kPGAMw-T5VZ5cifd7CfW/view?usp=drive_link" target="_blank">📄 Nic</a> / <a class="b-ref" href="https://drive.google.com/file/d/1Tj558SfWIt6VLF6nVCo_HVuX0g7WzgEz/view?usp=drive_link" target="_blank">📄 Donna</a></td></tr>
@@ -1155,7 +919,7 @@ background-repeat: no-repeat;"></div>
 </div>
 <div class="detail-block">
 <div class="detail-label">Hotel ICON Hong Kong (14–16 Oct · 2 Nights)</div>
-<div class="info-table-wrap table-wrap"><table class="info-table">
+<table class="info-table">
 <tr><td>Address</td><td><a class="b-ref" href="https://www.google.com/maps/place/Hotel+ICON/@22.3011571,114.1766375,1118m/data=!3m2!1e3!5s0x340400e5f6744953:0x9d3d1e6a4013dc08!4m10!3m9!1s0x340400ef557d9625:0xe87cfeb256c18dca!5m3!1s2026-04-01!4m1!1i2!8m2!3d22.3007586!4d114.1796973!16s%2Fm%2F0glnrp3?entry=ttu&amp;g_ep=EgoyMDI2MDMyMy4xIKXMDSoASAFQAw%3D%3D" target="_blank">📍</a> 17 Science Museum Road, Tsim Sha Tsui East, Kowloon</td></tr>
 <tr><td>Room</td><td>Club 38 Harbour View King</td></tr>
 <tr><td>Rate</td><td>HKD 3,430/night + 10% service charge · Guest own account</td></tr>
@@ -1175,7 +939,7 @@ background-repeat: no-repeat;"></div>
 <p class="section-desc">Every confirmed flight and accommodation with booking references.</p>
 </div>
 <div class="reveal" style="overflow-x:auto">
-<div class="bookings-table-wrap table-wrap"><table class="bookings-table">
+<table class="bookings-table">
 <thead><tr><th>Date</th><th>Item</th><th>Detail</th><th>Reference</th></tr></thead>
 <tbody>
 <tr><td>14 Aug</td><td>QF674 ADL–MEL</td><td>Business Class · Boeing 737</td><td><span class="b-ref">DELRK5</span></td></tr>
@@ -1237,7 +1001,7 @@ background-repeat: no-repeat;"></div>
 <!-- OUTBOUND -->
 <div class="detail-label reveal" style="margin-bottom:1.5rem">Outbound — Adelaide to Milan</div>
 <div class="reveal" style="overflow-x:auto; margin-bottom:3rem">
-<div class="bookings-table-wrap table-wrap"><table class="bookings-table">
+<table class="bookings-table">
 <thead>
 <tr>
 <th>Date</th>
@@ -1302,7 +1066,7 @@ background-repeat: no-repeat;"></div>
 <!-- IN-TRIP -->
 <div class="detail-label reveal" style="margin-bottom:1.5rem">In-Trip Flights</div>
 <div class="reveal" style="overflow-x:auto; margin-bottom:3rem">
-<div class="bookings-table-wrap table-wrap"><table class="bookings-table">
+<table class="bookings-table">
 <thead>
 <tr>
 <th>Date</th>
@@ -1367,7 +1131,7 @@ background-repeat: no-repeat;"></div>
 <!-- HOMEBOUND -->
 <div class="detail-label reveal" style="margin-bottom:1.5rem">Homebound — Madrid to Adelaide</div>
 <div class="reveal" style="overflow-x:auto">
-<div class="bookings-table-wrap table-wrap"><table class="bookings-table">
+<table class="bookings-table">
 <thead>
 <tr>
 <th>Date</th>
@@ -1440,7 +1204,7 @@ background-repeat: no-repeat;"></div>
 <strong>Paris transfer requires station change (Gare de l’Est to Gare de Lyon). Allow 1 hour 15 minutes.</strong></p>
 </div>
 <div class="reveal" style="overflow-x:auto">
-<div class="bookings-table-wrap table-wrap"><table class="bookings-table">
+<table class="bookings-table">
 <thead>
 <tr>
 <th>Date</th>
@@ -1518,7 +1282,7 @@ background-repeat: no-repeat;"></div>
       </p>
 </div>
 <div class="reveal" style="overflow-x:auto">
-<div class="bookings-table-wrap table-wrap"><table class="bookings-table">
+<table class="bookings-table">
 <thead>
 <tr>
 <th>Date</th>
@@ -1564,7 +1328,7 @@ background-repeat: no-repeat;"></div>
 <div class="insurance-grid reveal">
 <div class="insurance-card">
 <h4>Policy Details</h4>
-<div class="info-table-wrap table-wrap"><table class="info-table">
+<table class="info-table">
 <tr><td>Policy Number</td><td class="mono">993922484</td></tr>
 <tr><td>Plan</td><td>International Comprehensive</td></tr>
 <tr><td>Excess</td><td>A$250</td></tr>
@@ -1576,7 +1340,7 @@ background-repeat: no-repeat;"></div>
 </div>
 <div class="insurance-card">
 <h4>Emergency Contacts</h4>
-<div class="info-table-wrap table-wrap"><table class="info-table">
+<table class="info-table">
 <tr><td>Emergency (overseas)</td><td class="mono">+61 3 9522 4838</td></tr>
 <tr><td>Claims (overseas)</td><td class="mono">+61 3 9522 4839</td></tr>
 <tr><td>Australia freecall</td><td class="mono">1800 954 016</td></tr>
@@ -1704,38 +1468,5 @@ updateCountdown();
 </div>
 </div>
 </section>
-
-<div class="offline-indicator" id="offlineIndicator" aria-live="polite">Offline mode active</div>
-<div class="mobile-jumpbar" aria-label="Quick navigation">
-  <nav>
-    <ul class="mobile-jumpbar-list">
-      <li><a href="#overview">Overview</a></li>
-      <li><a href="#today-view">Today</a></li>
-      <li><a href="#phases">Places</a></li>
-      <li><a href="#bookings">Bookings</a></li>
-      <li><a href="#checklist">Checklist</a></li>
-    </ul>
-  </nav>
-</div>
-<script>
-(function(){
-  var indicator = document.getElementById('offlineIndicator');
-  function syncOnlineState(){
-    if(!indicator) return;
-    indicator.classList.toggle('show', !navigator.onLine);
-    indicator.textContent = navigator.onLine ? 'Back online' : 'Offline mode active';
-    if(navigator.onLine){ setTimeout(function(){ indicator.classList.remove('show'); }, 1400); }
-  }
-  window.addEventListener('online', syncOnlineState);
-  window.addEventListener('offline', syncOnlineState);
-  syncOnlineState();
-  if('serviceWorker' in navigator){
-    window.addEventListener('load', function(){
-      navigator.serviceWorker.register('./sw.js').catch(function(){});
-    });
-  }
-})();
-</script>
-
 </body>
 </html>
