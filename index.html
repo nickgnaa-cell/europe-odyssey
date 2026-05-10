@@ -331,6 +331,16 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
   }
 }
 
+
+.today-tomorrow-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0 0}
+.day-card{background:#fff;border:1px solid rgba(196,208,220,.9);border-top:3px solid #A8821E;border-radius:18px;padding:1rem 1rem 1.1rem;box-shadow:0 6px 18px rgba(9,29,53,.06)}
+.day-kicker{font-size:.58rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#A8821E;margin-bottom:.45rem}
+.day-date{font-size:.8rem;font-weight:600;letter-spacing:.08em;color:#6E8FA8;margin-bottom:.35rem}
+.day-title{font-family:'Cormorant Garamond',serif;font-size:1.55rem;line-height:1.05;color:#091D35;margin-bottom:.35rem}
+.day-body{font-size:.88rem;line-height:1.55;color:#3A526A}
+.version-stamp{display:inline-flex;align-items:center;gap:.4rem;margin-top:.9rem;padding:.35rem .7rem;border:1px solid rgba(201,168,76,.35);border-radius:999px;background:rgba(255,255,255,.08);color:#fff;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase}
+@media (max-width:768px){.today-tomorrow-wrap{grid-template-columns:1fr}.version-stamp{margin-top:.5rem}}
+
 </style>
 </head>
 <body>
@@ -1468,5 +1478,12 @@ updateCountdown();
 </div>
 </div>
 </section>
+
+<script>
+  const APP_VERSION = 'GitHub upload · 2026-05-10';
+  const stamp = document.getElementById('versionStamp');
+  if (stamp) stamp.textContent = APP_VERSION;
+</script>
+
 </body>
 </html>
