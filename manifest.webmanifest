@@ -1,12 +1,13 @@
 {
   "name": "European Odyssey 2026",
   "short_name": "Odyssey 2026",
-  "start_url": ".",
-  "scope": ".",
+  "description": "Nicola and Donna Giannetta's European Odyssey 2026 itinerary.",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#F8F7F4",
   "theme_color": "#091D35",
-  "version": "2026-05-10",
+  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "icon-192.png",
