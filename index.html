@@ -340,6 +340,29 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
 </style>
 </head>
 <body>
+<!-- Dynamic Travel Dashboard -->
+<section id="travel-dashboard" style="max-width:1200px;margin:30px auto;padding:20px;border-radius:18px;background:rgba(9,29,53,0.92);color:white;box-shadow:0 10px 30px rgba(0,0,0,0.25);">
+  <h2 style="margin-top:0;font-size:2rem;">🧭 Travel Dashboard</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+    
+    <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:14px;">
+      <h3 style="margin-top:0;">📅 Today</h3>
+      <div id="today-content">Loading itinerary...</div>
+    </div>
+
+    <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:14px;">
+      <h3 style="margin-top:0;">➡️ Tomorrow</h3>
+      <div id="tomorrow-content">Loading itinerary...</div>
+    </div>
+
+    <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:14px;">
+      <h3 style="margin-top:0;">⏳ Countdown</h3>
+      <div id="countdown-content">Calculating...</div>
+    </div>
+
+  </div>
+</section>
+
 <nav>
 <a class="nav-brand" href="#">European Odyssey 2026 · 2026</a>
 <ul class="nav-links">
