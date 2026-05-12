@@ -1550,7 +1550,16 @@ function formatDate(date) {
   return y + '-' + m + '-' + d;
 }
 
-const now = new Date();
+// ======================================
+// Travel Dashboard Date Override
+// Set TEST_NOW for simulation testing
+// ======================================
+
+const TEST_NOW = null;
+
+const now = TEST_NOW
+  ? new Date(TEST_NOW)
+  : new Date();
 const today = formatDate(now);
 
 const tomorrowDate = new Date(now);
