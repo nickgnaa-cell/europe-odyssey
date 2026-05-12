@@ -341,27 +341,33 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
 </head>
 <body>
 <!-- Dynamic Travel Dashboard -->
-<section id="travel-dashboard" style="max-width:1200px;margin:30px auto;padding:20px;border-radius:18px;background:rgba(9,29,53,0.92);color:white;box-shadow:0 10px 30px rgba(0,0,0,0.25);">
-  <h2 style="margin-top:0;font-size:2rem;">🧭 Travel Dashboard</h2>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
-    
-    <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:14px;">
-      <h3 style="margin-top:0;">📅 Today</h3>
-      <div id="today-content">Loading itinerary...</div>
+<section id="travel-dashboard" style="max-width:1200px;margin:25px auto 40px auto;padding:20px;border-radius:20px;background:rgba(9,29,53,0.88);color:white;box-shadow:0 12px 30px rgba(0,0,0,0.25);">
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+    <h2 style="margin:0;font-size:2rem;">🧭 Travel Dashboard</h2>
+    <div style="opacity:0.85;font-size:0.95rem;">European Odyssey 2026</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:20px;">
+
+    <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:16px;">
+      <div style="font-size:0.9rem;opacity:0.8;">TODAY</div>
+      <div id="today-content" style="margin-top:8px;font-size:1.1rem;font-weight:600;">No scheduled travel today</div>
     </div>
 
-    <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:14px;">
-      <h3 style="margin-top:0;">➡️ Tomorrow</h3>
-      <div id="tomorrow-content">Loading itinerary...</div>
+    <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:16px;">
+      <div style="font-size:0.9rem;opacity:0.8;">TOMORROW</div>
+      <div id="tomorrow-content" style="margin-top:8px;font-size:1.1rem;font-weight:600;">No scheduled travel tomorrow</div>
     </div>
 
-    <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:14px;">
-      <h3 style="margin-top:0;">⏳ Countdown</h3>
-      <div id="countdown-content">Calculating...</div>
+    <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:16px;">
+      <div style="font-size:0.9rem;opacity:0.8;">COUNTDOWN</div>
+      <div id="countdown-content" style="margin-top:8px;font-size:1.1rem;font-weight:600;">Calculating...</div>
     </div>
 
   </div>
 </section>
+
+
 
 <nav>
 <a class="nav-brand" href="#">European Odyssey 2026 · 2026</a>
@@ -1506,6 +1512,92 @@ if ('serviceWorker' in navigator) {
       .catch(err => console.log('Service Worker registration failed:', err));
   });
 }
+</script>
+
+
+
+
+
+<script>
+window.addEventListener('load', function () {
+
+try {
+
+const itinerary = [
+  {date:'2026-08-14', title:'✈️ Adelaide → Melbourne → Singapore'},
+  {date:'2026-08-15', title:'✈️ Singapore → Dubai → Milan'},
+  {date:'2026-08-17', title:'✈️ Milan → Zagreb'},
+  {date:'2026-08-19', title:'🛳️ Croatia Yacht Charter Begins'},
+  {date:'2026-09-01', title:'✈️ Dubrovnik → Madrid → Bilbao'},
+  {date:'2026-09-04', title:'🚌 Bilbao → Bordeaux'},
+  {date:'2026-09-08', title:'🚆 Bordeaux → Épernay'},
+  {date:'2026-09-11', title:'🚆 Épernay → Antibes'},
+  {date:'2026-09-15', title:'✈️ Nice → Naples'},
+  {date:'2026-09-18', title:'⛴️ Naples → Ischia'},
+  {date:'2026-10-15', title:'✈️ Hong Kong → Perth'},
+  {date:'2026-10-16', title:'✈️ Perth → Adelaide'}
+];
+
+function formatDate(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return y + '-' + m + '-' + d;
+}
+
+const now = new Date();
+const today = formatDate(now);
+
+const tomorrowDate = new Date(now);
+tomorrowDate.setDate(now.getDate() + 1);
+const tomorrow = formatDate(tomorrowDate);
+
+const todayItem = itinerary.find(function(i){ return i.date === today; });
+const tomorrowItem = itinerary.find(function(i){ return i.date === tomorrow; });
+
+const todayEl = document.getElementById('today-content');
+const tomorrowEl = document.getElementById('tomorrow-content');
+const countdownEl = document.getElementById('countdown-content');
+
+if (todayEl) {
+  todayEl.innerHTML = todayItem
+    ? todayItem.title + '<br><small>' + todayItem.date + '</small>'
+    : 'No scheduled travel today';
+}
+
+if (tomorrowEl) {
+  tomorrowEl.innerHTML = tomorrowItem
+    ? tomorrowItem.title + '<br><small>' + tomorrowItem.date + '</small>'
+    : 'No scheduled travel tomorrow';
+}
+
+const tripStart = new Date('2026-08-14T07:50:00');
+const diff = tripStart.getTime() - now.getTime();
+
+if (countdownEl) {
+  if (diff > 0) {
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    countdownEl.innerHTML = days + ' days until departure ✈️';
+  } else {
+    countdownEl.innerHTML = 'Trip is underway ✈️';
+  }
+}
+
+console.log('Dashboard loaded successfully');
+
+} catch(err) {
+  console.error('Dashboard error:', err);
+
+  const todayEl = document.getElementById('today-content');
+  const tomorrowEl = document.getElementById('tomorrow-content');
+  const countdownEl = document.getElementById('countdown-content');
+
+  if(todayEl) todayEl.innerHTML = 'Dashboard loaded';
+  if(tomorrowEl) tomorrowEl.innerHTML = 'Awaiting trip dates';
+  if(countdownEl) countdownEl.innerHTML = 'Europe 2026';
+}
+
+});
 </script>
 
 </body>
