@@ -442,7 +442,7 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
   </div>
 
 <div style="text-align:right;margin-top:14px;font-size:0.75rem;opacity:0.65;letter-spacing:0.04em;">
-  Build v4.0 · Updated 12 May 2026
+  <span id="build-info"></span>
 </div>
 
 </section><section id="overview">
@@ -1637,6 +1637,25 @@ console.log('Dashboard loaded successfully');
   if(countdownEl) countdownEl.innerHTML = 'Europe 2026';
 }
 
+});
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const buildInfo = document.getElementById("build-info");
+
+    if (buildInfo) {
+        const now = new Date();
+
+        const formattedDate = now.toLocaleDateString("en-AU", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
+        });
+
+        buildInfo.innerHTML = `Build v4.1 · Updated ${formattedDate}`;
+    }
 });
 </script>
 
