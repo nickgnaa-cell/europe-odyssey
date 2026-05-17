@@ -1,4 +1,4 @@
-const CACHE_NAME = "european-odyssey-2026-v6";
+const CACHE_NAME = "european-odyssey-2026-v7";
 
 const STATIC_ASSETS = [
   "./",
@@ -20,9 +20,7 @@ self.addEventListener("activate", event => {
     caches.keys().then(keys =>
       Promise.all(
         keys.map(key => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
+          if (key !== CACHE_NAME) return caches.delete(key);
         })
       )
     ).then(() => self.clients.claim())
@@ -33,12 +31,9 @@ self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
 
   const url = new URL(event.request.url);
+  const isHtml = url.pathname.endsWith(".html") || url.pathname === "/" || url.pathname.endsWith("/");
 
-  if (
-    url.pathname.endsWith(".html") ||
-    url.pathname === "/" ||
-    url.pathname.endsWith("/europe-odyssey/")
-  ) {
+  if (isHtml) {
     event.respondWith(
       fetch(event.request)
         .then(response => {
@@ -46,7 +41,7 @@ self.addEventListener("fetch", event => {
           caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
           return response;
         })
-        .catch(() => caches.match(event.request))
+        .catch(() => caches.match("./index.html"))
     );
     return;
   }
