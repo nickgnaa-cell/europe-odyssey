@@ -1,187 +1,64 @@
-const CACHE_NAME = "european-odyssey-2026-v4";
+const CACHE_NAME = "european-odyssey-2026-v6";
 
 const STATIC_ASSETS = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
-  "./icon-192.png",
-  "./icon-512.png"
+  "./icon-192.jpg",
+  "./icon-512-2.jpg"
 ];
 
-// Install
 self.addEventListener("install", event => {
   self.skipWaiting();
-
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(STATIC_ASSETS);
-    })
+    caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_ASSETS))
   );
 });
 
-// Activate
 self.addEventListener("activate", event => {
   event.waitUntil(
-    caches.keys().then(keys => {
-      return Promise.all(
+    caches.keys().then(keys =>
+      Promise.all(
         keys.map(key => {
           if (key !== CACHE_NAME) {
             return caches.delete(key);
           }
         })
-      );
-    }).then(() => self.clients.claim())
+      )
+    ).then(() => self.clients.claim())
   );
 });
 
-// Fetch Strategy
 self.addEventListener("fetch", event => {
-
   if (event.request.method !== "GET") return;
 
-  const requestURL = new URL(event.request.url);
+  const url = new URL(event.request.url);
 
-  // NETWORK FIRST for HTML pages
   if (
-    requestURL.pathname.endsWith(".html") ||
-    requestURL.pathname === "/" ||
-    requestURL.pathname.endsWith("/europe-odyssey/")
+    url.pathname.endsWith(".html") ||
+    url.pathname === "/" ||
+    url.pathname.endsWith("/europe-odyssey/")
   ) {
-
     event.respondWith(
       fetch(event.request)
-        .then(networkResponse => {
-
-          const responseClone = networkResponse.clone();
-
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, responseClone);
-          });
-
-          return networkResponse;
-
+        .then(response => {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+          return response;
         })
         .catch(() => caches.match(event.request))
     );
-
     return;
   }
 
-  // CACHE FIRST for images/assets
   event.respondWith(
-    caches.match(event.request).const CACHE_NAME = "european-odyssey-2026-v5";
-
-const STATIC_ASSETS = [
-  "./",
-  "./index.html",
-  "./manifest.webmanifest",
-  "./icon-192.png",
-  "./icon-512.png"
-];
-
-// Install
-self.addEventListener("install", event => {
-  self.skipWaiting();
-
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(STATIC_ASSETS);
-    })
+    caches.match(event.request).then(cached =>
+      cached ||
+      fetch(event.request).then(response => {
+        const clone = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+        return response;
+      })
+    )
   );
-});
-
-// Activate
-self.addEventListener("activate", event => {
-  event.waitUntil(
-    caches.keys().then(keys => {
-      return Promise.all(
-        keys.map(key => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
-        })
-      );
-    }).then(() => self.clients.claim())
-  );
-});
-
-// Fetch Strategy
-self.addEventListener("fetch", event => {
-
-  if (event.request.method !== "GET") return;
-
-  const requestURL = new URL(event.request.url);
-
-  // NETWORK FIRST for HTML pages
-  if (
-    requestURL.pathname.endsWith(".html") ||
-    requestURL.pathname === "/" ||
-    requestURL.pathname.endsWith("/europe-odyssey/")
-  ) {
-
-    event.respondWith(
-      fetch(event.request)
-        .then(networkResponse => {
-
-          const responseClone = networkResponse.clone();
-
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, responseClone);
-          });
-
-          return networkResponse;
-
-        })
-        .catch(() => caches.match(event.request))
-    );
-
-    return;
-  }
-
-  // CACHE FIRST for images/assets
-  event.respondWith(
-    caches.match(event.request).then(cachedResponse => {
-
-      return (
-        cachedResponse ||
-
-        fetch(event.request).then(networkResponse => {
-
-          const responseClone = networkResponse.clone();
-
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, responseClone);
-          });
-
-          return networkResponse;
-
-        })
-
-      );
-
-    })
-  );
-
-});(cachedResponse => {
-
-      return (
-        cachedResponse ||
-
-        fetch(event.request).then(networkResponse => {
-
-          const responseClone = networkResponse.clone();
-
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, responseClone);
-          });
-
-          return networkResponse;
-
-        })
-
-      );
-
-    })
-  );
-
 });
