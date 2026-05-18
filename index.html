@@ -4,12 +4,12 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>European Odyssey 2026 | Nicola &amp; Donna Giannetta</title>
+<title>European Odyssey 2026 Travel Status | Nicola &amp; Donna Giannetta</title>
 <meta name="theme-color" content="#091D35"/>
 <link rel="manifest" href="manifest.webmanifest"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-title" content="European Odyssey 2026"/>
+<meta name="apple-mobile-web-app-title" content="European Odyssey 2026 Travel Status"/>
 <link rel="apple-touch-icon" href="icon-192.jpg"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&amp;family=Jost:wght@300;400;500;600&amp;family=Playfair+Display:ital,wght@0,700;1,400&amp;display=swap" rel="stylesheet"/>
@@ -356,14 +356,12 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
 </style>
 </head>
 <body>
-<div style="position:sticky;top:0;z-index:9999;background:#091D35;color:#fff;padding:10px 14px;font:14px/1.4 Jost,sans-serif;text-align:center;">Open this page in Safari/Chrome from the file attachment or upload it to GitHub Pages for tap-to-open links.</div>
-
 
 
 
 
 <nav>
-<a class="nav-brand" href="#">European Odyssey 2026</a>
+<a class="nav-brand" href="#">European Odyssey 2026 Travel Status</a>
 <ul class="nav-links">
 <li><a href="#overview">Overview</a></li>
 <li><a href="#phases">Destinations</a></li>
@@ -417,32 +415,54 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
 <span class="route-city">Adelaide</span><span class="route-arrow">→</span><span class="route-city">Singapore</span><span class="route-arrow">→</span><span class="route-city">Milan</span><span class="route-arrow">→</span><span class="route-city">Zagreb</span><span class="route-arrow">→</span><span class="route-city">Croatia Cruise</span><span class="route-arrow">→</span><span class="route-city">Bilbao</span><span class="route-arrow">→</span><span class="route-city">Bordeaux</span><span class="route-arrow">→</span><span class="route-city">Épernay</span><span class="route-arrow">→</span><span class="route-city">Antibes</span><span class="route-arrow">→</span><span class="route-city">Naples</span><span class="route-arrow">→</span><span class="route-city">Ischia</span><span class="route-arrow">→</span><span class="route-city">Monopoli</span><span class="route-arrow">→</span><span class="route-city">Rome</span><span class="route-arrow">→</span><span class="route-city">Madrid</span><span class="route-arrow">→</span><span class="route-city">Hong Kong</span><span class="route-arrow">→</span><span class="route-city">Adelaide</span>
 </div>
 </div>
+
+<script type="application/json" id="travel-data-json">
+[
+  {"date":"2026-08-14","title":"Adelaide → Melbourne → Singapore","type":"flight"},
+  {"date":"2026-08-15","title":"Singapore → Dubai → Milan","type":"flight"},
+  {"date":"2026-08-17","title":"Milan → Zagreb","type":"flight"},
+  {"date":"2026-08-19","endDate":"2026-09-01","title":"Croatia Cruise (13 nights)","type":"cruise"},
+  {"date":"2026-09-01","title":"Dubrovnik → Madrid → Bilbao","type":"flight"},
+  {"date":"2026-09-04","title":"Bilbao → Bordeaux","type":"travel"},
+  {"date":"2026-09-08","title":"Bordeaux → Epernay","type":"rail"},
+  {"date":"2026-09-11","title":"Epernay → Antibes","type":"rail"},
+  {"date":"2026-09-15","endDate":"2026-09-18","title":"Nice → Naples (transfer window)","type":"flight"},
+  {"date":"2026-09-18","title":"Naples → Ischia","type":"ferry"},
+  {"date":"2026-10-15","title":"Hong Kong → Perth","type":"flight"},
+  {"date":"2026-10-16","title":"Perth → Adelaide","type":"flight"}
+]
+</script>
 <!-- Dynamic Travel Dashboard -->
-<section id="travel-dashboard" style="max-width:1200px;margin:40px auto 60px auto;padding:18px;border-radius:20px;background:rgba(9,29,53,0.88);color:white;box-shadow:0 12px 30px rgba(0,0,0,0.25);">
+<section id="travel-dashboard" style="max-width:1200px;margin:40px auto 60px auto;max-width:1100px;padding:18px;border-radius:20px;background:rgba(9,29,53,0.88);color:white;box-shadow:0 12px 30px rgba(0,0,0,0.25);">
   <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-    <h2 style="margin:0;font-size:1.8rem;">Travel Dashboard</h2>
-    <div style="opacity:0.85;font-size:0.95rem;">European Odyssey 2026</div>
+    <h2 style="margin:0;font-size:1.8rem;">🧭 Travel Dashboard</h2>
+    <div style="opacity:0.85;font-size:0.95rem;">European Odyssey 2026 Travel Status</div>
   </div>
+
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:20px;">
+
     <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:16px;">
       <div style="font-size:0.9rem;opacity:0.8;">TODAY</div>
-      <div id="today-content" style="margin-top:8px;font-size:1.1rem;font-weight:600;">No scheduled travel today</div>
+      <div id="today-content" style="margin-top:8px;font-size:1.1rem;font-weight:600;">No trip scheduled today</div>
     </div>
+
     <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:16px;">
       <div style="font-size:0.9rem;opacity:0.8;">TOMORROW</div>
-      <div id="tomorrow-content" style="margin-top:8px;font-size:1.1rem;font-weight:600;">No scheduled travel tomorrow</div>
+      <div id="tomorrow-content" style="margin-top:8px;font-size:1.1rem;font-weight:600;">No trip scheduled tomorrow</div>
     </div>
+
     <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:16px;">
-      <div style="font-size:0.9rem;opacity:0.8;">LOCAL TIME</div>
-      <div id="localtime-content" style="margin-top:8px;font-size:1.1rem;font-weight:600;">Loading...</div>
+      <div style="font-size:0.9rem;opacity:0.8;">COUNTDOWN</div>
+      <div id="countdown-content" style="margin-top:8px;font-size:1.1rem;font-weight:600;">Checking trip status...</div><div id="active-span" style="margin-top:8px;font-size:0.95rem;opacity:0.85;"></div><div id="booking-alerts" style="margin-top:8px;font-size:0.9rem;opacity:0.85;"></div><div id="timezone-display" style="margin-top:8px;font-size:0.9rem;opacity:0.85;"></div><div id="weather-display" style="margin-top:8px;font-size:0.9rem;opacity:0.85;"></div>
     </div>
-    <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:16px;">
-      <div style="font-size:0.9rem;opacity:0.8;">ALERTS</div>
-      <div id="alerts-content" style="margin-top:8px;font-size:1.0rem;font-weight:600;">Scanning bookings...</div>
-    </div>
+
   </div>
-</section>
-<section id="overview">
+
+<div style="text-align:right;margin-top:14px;font-size:0.75rem;opacity:0.65;letter-spacing:0.04em;">
+  <span id="build-info"></span>
+</div>
+
+</section><section id="overview">
 <div class="section-inner">
 <div class="section-header reveal">
 <div class="chapter-label">Chapter I</div>
@@ -1524,7 +1544,7 @@ background-repeat: no-repeat;"></div>
 </div>
 </section>
 <footer>
-<div class="footer-title">European Odyssey 2026 2026</div>
+<div class="footer-title">European Odyssey 2026 Travel Status 2026</div>
 <p class="footer-sub">Nicola &amp; Donna Giannetta</p>
 <div class="footer-line"></div>
 <p class="footer-meta">
@@ -1588,9 +1608,7 @@ updateCountdown();
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
-      .then(reg => console.log('Service Worker registered:', reg.scope))
-      .catch(err => console.log('Service Worker registration failed:', err));
+    navigator.serviceWorker.register('./sw.js');
   });
 }
 </script>
@@ -1652,13 +1670,13 @@ const countdownEl = document.getElementById('countdown-content');
 if (todayEl) {
   todayEl.innerHTML = todayItem
     ? todayItem.title + '<br><small>' + todayItem.date + '</small>'
-    : 'No scheduled travel today';
+    : 'No trip scheduled today';
 }
 
 if (tomorrowEl) {
   tomorrowEl.innerHTML = tomorrowItem
     ? tomorrowItem.title + '<br><small>' + tomorrowItem.date + '</small>'
-    : 'No scheduled travel tomorrow';
+    : 'No trip scheduled tomorrow';
 }
 
 const tripStart = new Date('2026-08-14T07:50:00');
@@ -1712,31 +1730,74 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <script>
 (function(){
-  const items = [
-    {date:'2026-08-14', label:'Singapore', checkIn:true},
-    {date:'2026-08-15', label:'Milan', checkIn:true},
-    {date:'2026-08-17', label:'Zagreb', checkIn:true},
-    {date:'2026-08-19', label:'Croatia Cruise', checkIn:true},
-    {date:'2026-09-14', label:'Bilbao', checkIn:true},
-    {date:'2026-09-15', label:'Bordeaux', checkIn:true},
-    {date:'2026-09-18', label:'Antibes', checkIn:true},
-    {date:'2026-09-25', label:'Monopoli', checkIn:true},
-    {date:'2026-10-02', label:'Vieste', checkIn:true},
-    {date:'2026-10-07', label:'Monte Sant'Angelo', checkIn:true},
-    {date:'2026-10-08', label:'Foggia → Roma Termini', checkIn:false},
-    {date:'2026-10-11', label:'Rome', checkIn:true},
-    {date:'2026-10-13', label:'Madrid', checkIn:true},
-    {date:'2026-10-14', label:'Hong Kong', checkIn:true}
-  ];
-  const today = items[0], tomorrow = items[1];
-  const dtf = new Intl.DateTimeFormat(undefined,{dateStyle:'medium', timeStyle:'short'});
-  document.getElementById('today-content').textContent = 'No scheduled travel today';
-  document.getElementById('tomorrow-content').textContent = 'No scheduled travel tomorrow';
-  document.getElementById('localtime-content').textContent = dtf.format(new Date());
-  const missing = [];
-  if (!document.body.innerHTML.includes('1fdpje_PaT4yF0v607fpeCRAoxvHZz0vk')) missing.push('Nic Foggia link');
-  if (!document.body.innerHTML.includes('1y-0YvWOnpgNC3WU5sGi-fSRIIuGtCaxD')) missing.push('Donna Foggia link');
-  document.getElementById('alerts-content').textContent = missing.length ? `Missing: ${missing.join(', ')}` : 'No obvious missing booking refs';
+  try {
+    const dataEl = document.getElementById('travel-data-json');
+    const dashboard = document.getElementById('travel-dashboard');
+    if (!dataEl || !dashboard) return;
+    const itinerary = JSON.parse(dataEl.textContent || '[]');
+    const now = new Date();
+    const fmt = d => d.toISOString().slice(0,10);
+    const today = fmt(now);
+    const tomorrow = fmt(new Date(now.getTime() + 86400000));
+    const inRange = (d, start, end) => d >= start && d <= end;
+    const spanItems = itinerary.filter(i => i.endDate);
+    const todaySpan = spanItems.find(i => inRange(today, i.date, i.endDate)) || null;
+    const tomorrowSpan = spanItems.find(i => inRange(tomorrow, i.date, i.endDate)) || null;
+    const upcoming = itinerary.filter(i => i.date >= today);
+    const todayItem = todaySpan || itinerary.find(i => i.date === today) || upcoming[0] || null;
+    const tomorrowItem = tomorrowSpan || itinerary.find(i => i.date === tomorrow) || upcoming[1] || null;
+    const spanLabel = todaySpan ? `${todaySpan.title}` : (todayItem ? todayItem.title : 'No active trip block');
+    const alertItems = itinerary.filter(i => !i.title || !i.date || (!i.type && !i.endDate));
+    const missingRefs = itinerary.filter(i => !i.ref && !i.booking && !i.ticket);
+    const alertSummary = alertItems.length ? `${alertItems.length} items require review` : 'All tracked items look complete';
+
+    const destinationZones = {
+      Singapore: 'Asia/Singapore', Milan: 'Europe/Rome', Zagreb: 'Europe/Zagreb', Dubrovnik: 'Europe/Zagreb', Bilbao: 'Europe/Madrid', Bordeaux: 'Europe/Paris', Epernay: 'Europe/Paris', Antibes: 'Europe/Paris', Nice: 'Europe/Paris', Naples: 'Europe/Rome', Ischia: 'Europe/Rome', Monopoli: 'Europe/Rome', Rome: 'Europe/Rome', Madrid: 'Europe/Madrid', 'Hong Kong': 'Asia/Hong_Kong', Perth: 'Australia/Perth', Adelaide: 'Australia/Adelaide'
+    };
+
+    const weatherCoords = {
+      Singapore: [1.3521, 103.8198], Milan: [45.4642, 9.19], Zagreb: [45.815, 15.9819], Dubrovnik: [42.6507, 18.0944], Bilbao: [43.263, -2.935], Bordeaux: [44.8378, -0.5792], Epernay: [49.04, 3.954], Antibes: [43.58, 7.12], Nice: [43.7102, 7.262], Naples: [40.8518, 14.2681], Ischia: [40.732, 13.94], Monopoli: [40.95, 17.3], Rome: [41.9028, 12.4964], Madrid: [40.4168, -3.7038], 'Hong Kong': [22.3193, 114.1694], Perth: [-31.9523, 115.8613], Adelaide: [-34.9285, 138.6007]
+    };
+    const weatherKey = (item) => {
+      if (!item) return 'Adelaide';
+      return Object.keys(weatherCoords).find(k => item.title && item.title.includes(k)) || 'Adelaide';
+    };
+    const zoneGuess = (item) => {
+      if (!item) return 'Australia/Adelaide';
+      const hit = Object.keys(destinationZones).find(k => item.title && item.title.includes(k));
+      return hit ? destinationZones[hit] : 'Australia/Adelaide';
+    };
+    const set = (id, val) => { const el = document.getElementById(id); if (el) el.innerHTML = val; };
+    const alertCount = itinerary.filter(i => !i.title || !i.date).length;
+    set('today-content', todayItem ? `${todayItem.title}<br><small>${todayItem.date}</small><br><em>${spanLabel}</em>` : 'No trip scheduled today');
+    set('tomorrow-content', tomorrowItem ? `${tomorrowItem.title}<br><small>${tomorrowItem.date}</small>` : 'No trip scheduled tomorrow');
+    const buildInfo = document.getElementById('build-info');
+    if (buildInfo) buildInfo.innerHTML = `Build v4.3 · ${alertCount} items need review`;
+    const activeSpan = document.getElementById('active-span');
+    if (activeSpan) activeSpan.innerHTML = todaySpan ? `Current block: ${spanLabel}` : 'No active trip block';
+    const bookingAlerts = document.getElementById('booking-alerts');
+    if (bookingAlerts) bookingAlerts.innerHTML = missingRefs.length ? `${missingRefs.length} items are missing booking references` : 'No missing booking references';
+    const timezoneDisplay = document.getElementById('timezone-display');
+    if (timezoneDisplay) {
+      const zone = zoneGuess(todayItem || tomorrowItem);
+      const localNow = new Intl.DateTimeFormat('en-AU', { timeZone: zone, hour: '2-digit', minute: '2-digit', weekday: 'short', day: '2-digit', month: 'short' }).format(new Date());
+      timezoneDisplay.innerHTML = `Local time now: ${localNow} (${zone})`;
+    }
+
+    const weatherDisplay = document.getElementById('weather-display');
+    if (weatherDisplay) {
+      const wk = weatherKey(todayItem || tomorrowItem);
+      const [lat, lon] = weatherCoords[wk];
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=auto`;
+      fetch(url).then(r => r.json()).then(data => {
+        const t = data?.current?.temperature_2m;
+        weatherDisplay.innerHTML = t != null ? `Weather now: ${Math.round(t)}&deg;C now` : 'Weather currently unavailable';
+      }).catch(() => { weatherDisplay.innerHTML = 'Weather currently unavailable'; });
+    }
+    const reviewEl = document.getElementById('build-info');
+    if (reviewEl) reviewEl.innerHTML = `Build v4.8 · ${alertSummary} · ${missingRefs.length} missing refs`;
+    window.travelDashboard = { itinerary, today, tomorrow, alertCount };
+  } catch(e) { console.warn(e); }
 })();
 </script>
 
