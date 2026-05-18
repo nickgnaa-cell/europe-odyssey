@@ -1569,7 +1569,7 @@ window.addEventListener('scroll', () => {
 });
 </script>
 <script>
-const targetDate = new Date("August 14, 2026 07:50:00").getTime();
+const targetDate = new Date("2026-08-14T07:50:00+09:30").getTime();
 
 function updateCountdown() {
   const now = new Date().getTime();
@@ -1668,8 +1668,6 @@ if ('serviceWorker' in navigator) {
     const alertCount = itinerary.filter(i => !i.title || !i.date).length;
     set('today-content', todayItem ? `${todayItem.title}<br><small>${todayItem.date}</small><br><em>${cruiseDay || spanLabel}</em>${todayLine ? '<br><span style="font-size:0.85rem;opacity:0.8;">' + todayLine + '</span>' : ''}` : 'No trip scheduled today');
     set('tomorrow-content', tomorrowItem ? `${tomorrowItem.title}<br><small>${tomorrowItem.date}</small>` : 'No trip scheduled tomorrow');
-    const buildInfo = document.getElementById('build-info');
-    if (buildInfo) buildInfo.innerHTML = `Build v4.3 · ${alertCount} items need review`;
     const activeSpan = document.getElementById('active-span');
     if (activeSpan) activeSpan.innerHTML = todaySpan ? `Current block: ${cruiseDay || spanLabel}` : 'No active trip block';
     const bookingAlerts = document.getElementById('booking-alerts');
