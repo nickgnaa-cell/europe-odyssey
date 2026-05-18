@@ -356,6 +356,8 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
 </style>
 </head>
 <body>
+<div style="position:sticky;top:0;z-index:9999;background:#091D35;color:#fff;padding:10px 14px;font:14px/1.4 Jost,sans-serif;text-align:center;">Open this page in Safari/Chrome from the file attachment or upload it to GitHub Pages for tap-to-open links.</div>
+
 
 
 
@@ -416,6 +418,31 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
 </div>
 </div>
 <!-- Dynamic Travel Dashboard -->
+<section id="travel-dashboard" style="max-width:1200px;margin:40px auto 60px auto;padding:18px;border-radius:20px;background:rgba(9,29,53,0.88);color:white;box-shadow:0 12px 30px rgba(0,0,0,0.25);">
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+    <h2 style="margin:0;font-size:1.8rem;">Travel Dashboard</h2>
+    <div style="opacity:0.85;font-size:0.95rem;">European Odyssey 2026</div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:20px;">
+    <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:16px;">
+      <div style="font-size:0.9rem;opacity:0.8;">TODAY</div>
+      <div id="today-content" style="margin-top:8px;font-size:1.1rem;font-weight:600;">Loading...</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:16px;">
+      <div style="font-size:0.9rem;opacity:0.8;">TOMORROW</div>
+      <div id="tomorrow-content" style="margin-top:8px;font-size:1.1rem;font-weight:600;">Loading...</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:16px;">
+      <div style="font-size:0.9rem;opacity:0.8;">LOCAL TIME</div>
+      <div id="localtime-content" style="margin-top:8px;font-size:1.1rem;font-weight:600;">Loading...</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:16px;">
+      <div style="font-size:0.9rem;opacity:0.8;">ALERTS</div>
+      <div id="alerts-content" style="margin-top:8px;font-size:1.0rem;font-weight:600;">Scanning bookings...</div>
+    </div>
+  </div>
+</section>
+
 <section id="travel-dashboard" style="max-width:1200px;margin:40px auto 60px auto;max-width:1100px;padding:18px;border-radius:20px;background:rgba(9,29,53,0.88);color:white;box-shadow:0 12px 30px rgba(0,0,0,0.25);">
   <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
     <h2 style="margin:0;font-size:1.8rem;">🧭 Travel Dashboard</h2>
@@ -1220,7 +1247,7 @@ background-repeat: no-repeat;"></div>
 <td>—</td>
 <td>Business</td>
 <td><span class="b-ref">MBQHM</span></td>
-<td><a class="b-ref" href="https://drive.google.com/file/d/1T4mAYtEzLC60hxpp1EjEyOpqo2ng09Tk/view?usp=drive_link" target="_blank">📄 Nic</a> / <a class="b-ref" href="https://drive.google.com/file/d/1y-0YvWOnpgNC3WU5sGi-fSRIIuGtCaxD/view?usp=drive_link" target="_blank">📄 Donna</a></td>
+<td><a class="b-ref" href="https://drive.google.com/file/d/1T4mAYtEzLC60hxpp1EjEyOpqo2ng09Tk/view?usp=drive_link" target="_blank">📄 Nic</a> / <a class="b-ref" href="https://drive.google.com/file/d/1V-aFU_pznTJr-Nnm9wuUOM9CU815Zpoa/view?usp=drive_link" target="_blank">📄 Donna</a></td>
 </tr>
 <tr>
 <td>15 Sep</td>
@@ -1385,16 +1412,6 @@ background-repeat: no-repeat;"></div>
 <td>1st</td>
 <td>250 &amp; 251</td>
 <td><a class="b-ref" href="https://drive.google.com/file/d/16e29WtUUgB6Impy7UpDR9ccClWfDkDQb/view?usp=drive_link" target="_blank">📄 Nic</a> / <a class="b-ref" href="https://drive.google.com/file/d/18V-al83eFiBC3bEmgyxnneBpmqXpCSkS/view?usp=drive_link" target="_blank">📄 Donna</a></td>
-</tr>
-<tr>
-<td>8 Oct</td>
-<td>Foggia → Roma Termini</td>
-<td>09:52</td>
-<td>13:15</td>
-<td>Frecciarossa 8306</td>
-<td>Business</td>
-<td>13D &amp; 14D</td>
-<td><a class="b-ref" href="https://drive.google.com/file/d/1fdpje_PaT4yF0v607fpeCRAoxvHZz0vk/view?usp=drive_link" target="_blank">📄 Nic</a> / <a class="b-ref" href="https://drive.google.com/file/d/1y-0YvWOnpgNC3WU5sGi-fSRIIuGtCaxD/view?usp=drive_link" target="_blank">📄 Donna</a></td>
 </tr>
 </tbody>
 </table>
@@ -1720,6 +1737,37 @@ document.addEventListener("DOMContentLoaded", () => {
         buildInfo.innerHTML = `Build v4.1 · Updated ${formattedDate}`;
     }
 });
+</script>
+
+
+<script>
+(function(){
+  const items = [
+    {date:'2026-08-14', label:'Singapore', checkIn:true},
+    {date:'2026-08-15', label:'Milan', checkIn:true},
+    {date:'2026-08-17', label:'Zagreb', checkIn:true},
+    {date:'2026-08-19', label:'Croatia Cruise', checkIn:true},
+    {date:'2026-09-14', label:'Bilbao', checkIn:true},
+    {date:'2026-09-15', label:'Bordeaux', checkIn:true},
+    {date:'2026-09-18', label:'Antibes', checkIn:true},
+    {date:'2026-09-25', label:'Monopoli', checkIn:true},
+    {date:'2026-10-02', label:'Vieste', checkIn:true},
+    {date:'2026-10-07', label:'Monte Sant'Angelo', checkIn:true},
+    {date:'2026-10-08', label:'Foggia → Roma Termini', checkIn:false},
+    {date:'2026-10-11', label:'Rome', checkIn:true},
+    {date:'2026-10-13', label:'Madrid', checkIn:true},
+    {date:'2026-10-14', label:'Hong Kong', checkIn:true}
+  ];
+  const today = items[0], tomorrow = items[1];
+  const dtf = new Intl.DateTimeFormat(undefined,{dateStyle:'medium', timeStyle:'short'});
+  document.getElementById('today-content').textContent = `${today.label} · ${today.date}`;
+  document.getElementById('tomorrow-content').textContent = `${tomorrow.label} · ${tomorrow.date}`;
+  document.getElementById('localtime-content').textContent = dtf.format(new Date());
+  const missing = [];
+  if (!document.body.innerHTML.includes('1fdpje_PaT4yF0v607fpeCRAoxvHZz0vk')) missing.push('Nic Foggia link');
+  if (!document.body.innerHTML.includes('1y-0YvWOnpgNC3WU5sGi-fSRIIuGtCaxD')) missing.push('Donna Foggia link');
+  document.getElementById('alerts-content').textContent = missing.length ? `Missing: ${missing.join(', ')}` : 'No obvious missing booking refs';
+})();
 </script>
 
 </body>
