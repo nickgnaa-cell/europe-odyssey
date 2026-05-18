@@ -1,11 +1,11 @@
-const CACHE_NAME = "european-odyssey-2026-v7";
+const CACHE_NAME = "european-odyssey-2026-v8";
 
 const STATIC_ASSETS = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
-  "./icon-192.jpg",
-  "./icon-512-2.jpg"
+  "./icon-192.png",
+  "./icon-512.png"
 ];
 
 self.addEventListener("install", event => {

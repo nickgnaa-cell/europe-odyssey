@@ -9,9 +9,10 @@
 <link rel="manifest" href="manifest.webmanifest"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-title" content="European Odyssey 2026 Travel Status"/>
-<link rel="apple-touch-icon" href="icon-192.jpg"/>
+<meta name="apple-mobile-web-app-title" content="Odyssey 2026"/>
+<link rel="apple-touch-icon" href="icon-192.png"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&amp;family=Jost:wght@300;400;500;600&amp;family=Playfair+Display:ital,wght@0,700;1,400&amp;display=swap" rel="stylesheet"/>
 <style>
 :root {
@@ -353,6 +354,7 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
   }
 }
 
+@media (max-width:980px){.croatia-map-wrapper{padding:0.4rem!important}.croatia-map-wrapper img{transform:scale(1.01)!important}}
 </style>
 </head>
 <body>
@@ -1615,119 +1617,6 @@ if ('serviceWorker' in navigator) {
 
 
 
-
-
-<script>
-window.addEventListener('load', function () {
-
-try {
-
-const itinerary = [
-  {date:'2026-08-14', title:'✈️ Adelaide → Melbourne → Singapore'},
-  {date:'2026-08-15', title:'✈️ Singapore → Dubai → Milan'},
-  {date:'2026-08-17', title:'✈️ Milan → Zagreb'},
-  {date:'2026-08-19', title:'🛳️ Croatia Yacht Charter Begins'},
-  {date:'2026-09-01', title:'✈️ Dubrovnik → Madrid → Bilbao'},
-  {date:'2026-09-04', title:'🚌 Bilbao → Bordeaux'},
-  {date:'2026-09-08', title:'🚆 Bordeaux → Épernay'},
-  {date:'2026-09-11', title:'🚆 Épernay → Antibes'},
-  {date:'2026-09-15', title:'✈️ Nice → Naples'},
-  {date:'2026-09-18', title:'⛴️ Naples → Ischia'},
-  {date:'2026-10-15', title:'✈️ Hong Kong → Perth'},
-  {date:'2026-10-16', title:'✈️ Perth → Adelaide'}
-];
-
-function formatDate(date) {
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, '0');
-  const d = String(date.getDate()).padStart(2, '0');
-  return y + '-' + m + '-' + d;
-}
-
-// ======================================
-// Travel Dashboard Date Override
-// Set TEST_NOW for simulation testing
-// ======================================
-
-const TEST_NOW = null;
-
-const now = TEST_NOW
-  ? new Date(TEST_NOW)
-  : new Date();
-const today = formatDate(now);
-
-const tomorrowDate = new Date(now);
-tomorrowDate.setDate(now.getDate() + 1);
-const tomorrow = formatDate(tomorrowDate);
-
-const todayItems = itinerary.filter(function(i){ return i.date === today; });
-const tomorrowItems = itinerary.filter(function(i){ return i.date === tomorrow; });
-
-const todayEl = document.getElementById('today-content');
-const tomorrowEl = document.getElementById('tomorrow-content');
-const countdownEl = document.getElementById('countdown-content');
-
-if (todayEl) {
-  todayEl.innerHTML = todayItem
-    ? todayItem.title + '<br><small>' + todayItem.date + '</small>'
-    : 'No trip scheduled today';
-}
-
-if (tomorrowEl) {
-  tomorrowEl.innerHTML = tomorrowItem
-    ? tomorrowItem.title + '<br><small>' + tomorrowItem.date + '</small>'
-    : 'No trip scheduled tomorrow';
-}
-
-const tripStart = new Date('2026-08-14T07:50:00');
-const diff = tripStart.getTime() - now.getTime();
-
-if (countdownEl) {
-  if (diff > 0) {
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    countdownEl.innerHTML = days + ' days until departure ✈️';
-  } else {
-    countdownEl.innerHTML = 'Trip is underway ✈️';
-  }
-}
-
-console.log('Dashboard loaded successfully');
-
-} catch(err) {
-  console.error('Dashboard error:', err);
-
-  const todayEl = document.getElementById('today-content');
-  const tomorrowEl = document.getElementById('tomorrow-content');
-  const countdownEl = document.getElementById('countdown-content');
-
-  if(todayEl) todayEl.innerHTML = 'Dashboard loaded';
-  if(tomorrowEl) tomorrowEl.innerHTML = 'Awaiting trip dates';
-  if(countdownEl) countdownEl.innerHTML = 'Europe 2026';
-}
-
-});
-</script>
-
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const buildInfo = document.getElementById("build-info");
-
-    if (buildInfo) {
-        const now = new Date();
-
-        const formattedDate = now.toLocaleDateString("en-AU", {
-            day: "2-digit",
-            month: "long",
-            year: "numeric"
-        });
-
-        buildInfo.innerHTML = `Build v4.1 · Updated ${formattedDate}`;
-    }
-});
-</script>
-
-
 <script>
 (function(){
   try {
@@ -1811,12 +1700,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
-
-@media (max-width: 980px){
-.croatia-map-wrapper{
-padding:0.4rem !important;
-}
-.croatia-map-wrapper img{
-transform: scale(1.01) !important;
-}
-}
