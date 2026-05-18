@@ -421,7 +421,7 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
   {"date":"2026-08-14","title":"Adelaide → Melbourne → Singapore","type":"flight"},
   {"date":"2026-08-15","title":"Singapore → Dubai → Milan","type":"flight"},
   {"date":"2026-08-17","title":"Milan → Zagreb","type":"flight"},
-  {"date":"2026-08-19","endDate":"2026-09-01","title":"Croatia Cruise (13 nights)","type":"cruise"},
+  {"date":"2026-08-19","endDate":"2026-09-01","title":"Croatia Cruise (13 nights)","type":"cruise","days":13,"dayLabel":"Day 1"},
   {"date":"2026-09-01","title":"Dubrovnik → Madrid → Bilbao","type":"flight"},
   {"date":"2026-09-04","title":"Bilbao → Bordeaux","type":"travel"},
   {"date":"2026-09-08","title":"Bordeaux → Epernay","type":"rail"},
@@ -1747,6 +1747,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const todayItem = todaySpan || itinerary.find(i => i.date === today) || upcoming[0] || null;
     const tomorrowItem = tomorrowSpan || itinerary.find(i => i.date === tomorrow) || upcoming[1] || null;
     const spanLabel = todaySpan ? `${todaySpan.title}` : (todayItem ? todayItem.title : 'No active trip block');
+    const cruiseBlock = itinerary.find(i => i.type === 'cruise' && i.days && i.endDate);
+    const cruiseDay = cruiseBlock ? (() => {
+      const start = new Date(cruiseBlock.date + 'T00:00:00');
+      const t = new Date(today + 'T00:00:00');
+      const n = Math.floor((t - start) / 86400000) + 1;
+      return n >= 1 && n <= cruiseBlock.days ? `Croatia Cruise · Day ${n}` : null;
+    })() : null;
+    const todayLine = cruiseDay ? `You are on ${cruiseDay}` : '';
     const alertItems = itinerary.filter(i => !i.title || !i.date || (!i.type && !i.endDate));
     const missingRefs = itinerary.filter(i => !i.ref && !i.booking && !i.ticket);
     const alertSummary = alertItems.length ? `${alertItems.length} items require review` : 'All tracked items look complete';
@@ -1769,12 +1777,12 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     const set = (id, val) => { const el = document.getElementById(id); if (el) el.innerHTML = val; };
     const alertCount = itinerary.filter(i => !i.title || !i.date).length;
-    set('today-content', todayItem ? `${todayItem.title}<br><small>${todayItem.date}</small><br><em>${spanLabel}</em>` : 'No trip scheduled today');
+    set('today-content', todayItem ? `${todayItem.title}<br><small>${todayItem.date}</small><br><em>${cruiseDay || spanLabel}</em>${todayLine ? '<br><span style="font-size:0.85rem;opacity:0.8;">' + todayLine + '</span>' : ''}` : 'No trip scheduled today');
     set('tomorrow-content', tomorrowItem ? `${tomorrowItem.title}<br><small>${tomorrowItem.date}</small>` : 'No trip scheduled tomorrow');
     const buildInfo = document.getElementById('build-info');
     if (buildInfo) buildInfo.innerHTML = `Build v4.3 · ${alertCount} items need review`;
     const activeSpan = document.getElementById('active-span');
-    if (activeSpan) activeSpan.innerHTML = todaySpan ? `Current block: ${spanLabel}` : 'No active trip block';
+    if (activeSpan) activeSpan.innerHTML = todaySpan ? `Current block: ${cruiseDay || spanLabel}` : 'No active trip block';
     const bookingAlerts = document.getElementById('booking-alerts');
     if (bookingAlerts) bookingAlerts.innerHTML = missingRefs.length ? `${missingRefs.length} items are missing booking references` : 'No missing booking references';
     const timezoneDisplay = document.getElementById('timezone-display');
@@ -1795,7 +1803,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }).catch(() => { weatherDisplay.innerHTML = 'Weather currently unavailable'; });
     }
     const reviewEl = document.getElementById('build-info');
-    if (reviewEl) reviewEl.innerHTML = `Build v4.8 · ${alertSummary} · ${missingRefs.length} missing refs`;
+    if (reviewEl) reviewEl.innerHTML = `Build v5.0 · ${alertSummary} · ${missingRefs.length} missing refs`;
     window.travelDashboard = { itinerary, today, tomorrow, alertCount };
   } catch(e) { console.warn(e); }
 })();
