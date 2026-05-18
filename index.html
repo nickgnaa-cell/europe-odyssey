@@ -426,11 +426,11 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:20px;">
     <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:16px;">
       <div style="font-size:0.9rem;opacity:0.8;">TODAY</div>
-      <div id="today-content" style="margin-top:8px;font-size:1.1rem;font-weight:600;">Loading...</div>
+      <div id="today-content" style="margin-top:8px;font-size:1.1rem;font-weight:600;">No scheduled travel today</div>
     </div>
     <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:16px;">
       <div style="font-size:0.9rem;opacity:0.8;">TOMORROW</div>
-      <div id="tomorrow-content" style="margin-top:8px;font-size:1.1rem;font-weight:600;">Loading...</div>
+      <div id="tomorrow-content" style="margin-top:8px;font-size:1.1rem;font-weight:600;">No scheduled travel tomorrow</div>
     </div>
     <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:16px;">
       <div style="font-size:0.9rem;opacity:0.8;">LOCAL TIME</div>
@@ -442,37 +442,7 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
     </div>
   </div>
 </section>
-
-<section id="travel-dashboard" style="max-width:1200px;margin:40px auto 60px auto;max-width:1100px;padding:18px;border-radius:20px;background:rgba(9,29,53,0.88);color:white;box-shadow:0 12px 30px rgba(0,0,0,0.25);">
-  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-    <h2 style="margin:0;font-size:1.8rem;">🧭 Travel Dashboard</h2>
-    <div style="opacity:0.85;font-size:0.95rem;">European Odyssey 2026</div>
-  </div>
-
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:20px;">
-
-    <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:16px;">
-      <div style="font-size:0.9rem;opacity:0.8;">TODAY</div>
-      <div id="today-content" style="margin-top:8px;font-size:1.1rem;font-weight:600;">No scheduled travel today</div>
-    </div>
-
-    <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:16px;">
-      <div style="font-size:0.9rem;opacity:0.8;">TOMORROW</div>
-      <div id="tomorrow-content" style="margin-top:8px;font-size:1.1rem;font-weight:600;">No scheduled travel tomorrow</div>
-    </div>
-
-    <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:16px;">
-      <div style="font-size:0.9rem;opacity:0.8;">COUNTDOWN</div>
-      <div id="countdown-content" style="margin-top:8px;font-size:1.1rem;font-weight:600;">Calculating...</div>
-    </div>
-
-  </div>
-
-<div style="text-align:right;margin-top:14px;font-size:0.75rem;opacity:0.65;letter-spacing:0.04em;">
-  <span id="build-info"></span>
-</div>
-
-</section><section id="overview">
+<section id="overview">
 <div class="section-inner">
 <div class="section-header reveal">
 <div class="chapter-label">Chapter I</div>
@@ -1760,8 +1730,8 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
   const today = items[0], tomorrow = items[1];
   const dtf = new Intl.DateTimeFormat(undefined,{dateStyle:'medium', timeStyle:'short'});
-  document.getElementById('today-content').textContent = `${today.label} · ${today.date}`;
-  document.getElementById('tomorrow-content').textContent = `${tomorrow.label} · ${tomorrow.date}`;
+  document.getElementById('today-content').textContent = 'No scheduled travel today';
+  document.getElementById('tomorrow-content').textContent = 'No scheduled travel tomorrow';
   document.getElementById('localtime-content').textContent = dtf.format(new Date());
   const missing = [];
   if (!document.body.innerHTML.includes('1fdpje_PaT4yF0v607fpeCRAoxvHZz0vk')) missing.push('Nic Foggia link');
