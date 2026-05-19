@@ -199,9 +199,21 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
+.nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; cursor: pointer; background: none; border: none; padding: 4px; z-index: 200; }
+.nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--gold-light); border-radius: 2px; transition: all 0.3s ease; transform-origin: center; }
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-mobile-overlay { display: none; position: fixed; inset: 0; z-index: 150; background: rgba(9,29,53,0.98); backdrop-filter: blur(16px); flex-direction: column; align-items: center; justify-content: center; gap: 0; }
+.nav-mobile-overlay.open { display: flex; }
+.nav-mobile-overlay a { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; padding: 1.1rem 2rem; border-bottom: 1px solid rgba(168,130,30,0.12); width: 100%; text-align: center; transition: color 0.2s, background 0.2s; }
+.nav-mobile-overlay a:hover, .nav-mobile-overlay a:active { color: var(--gold-light); background: rgba(168,130,0.07); }
+.nav-mobile-overlay .nav-mobile-brand { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--gold-light); letter-spacing: 0.12em; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(168,130,30,0.3); padding-bottom: 1.5rem; width: 80%; text-align: center; }
+
 @media (max-width: 900px) {
   nav { padding: 0 1.5rem; }
   .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
   .hero-content { padding: 0 2rem 4rem; }
   .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
   .route-banner { padding: 1.2rem 2rem; }
@@ -372,7 +384,19 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
 <li><a href="#rail">Rail</a></li>
 <li><a href="#checklist">Checklist</a></li>
 </ul>
+<button class="nav-hamburger" id="navHamburger" aria-label="Open navigation"><span></span><span></span><span></span></button>
 </nav>
+<div class="nav-mobile-overlay" id="navOverlay">
+<div class="nav-mobile-brand">European Odyssey 2026</div>
+<a href="#overview" class="nav-overlay-link">Overview</a>
+<a href="#phases" class="nav-overlay-link">Destinations</a>
+<a href="#bookings" class="nav-overlay-link">Bookings</a>
+<a href="#critical" class="nav-overlay-link">Planning</a>
+<a href="#insurance" class="nav-overlay-link">Insurance</a>
+<a href="#flights" class="nav-overlay-link">Flights</a>
+<a href="#rail" class="nav-overlay-link">Rail</a>
+<a href="#checklist" class="nav-overlay-link">Checklist</a>
+</div>
 <section class="hero" id="home">
 <div class="hero-bg" id="heroBg"></div>
 <div class="hero-overlay"></div>
@@ -1601,6 +1625,30 @@ function updateCountdown() {
 
 setInterval(updateCountdown, 1000);
 updateCountdown();
+</script>
+<script>
+(function(){
+  const btn = document.getElementById('navHamburger');
+  const overlay = document.getElementById('navOverlay');
+  if (!btn || !overlay) return;
+  function closeMenu() {
+    btn.classList.remove('open');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  btn.addEventListener('click', function(){
+    const isOpen = overlay.classList.contains('open');
+    if (isOpen) { closeMenu(); }
+    else {
+      btn.classList.add('open');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  });
+  overlay.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', closeMenu);
+  });
+})();
 </script>
 <section id="additional-tickets">
 <div class="section-inner">
