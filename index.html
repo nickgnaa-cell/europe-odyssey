@@ -372,6 +372,43 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
 }
 
 @media (max-width:980px){.croatia-map-wrapper{padding:0.4rem!important}.croatia-map-wrapper img{transform:scale(1.01)!important}}
+
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:1000;background:var(--gold-light);color:var(--navy);padding:0.75rem 1rem;border-radius:6px;font-weight:600}
+    .skip-link:focus{left:1rem;top:1rem;width:auto;height:auto}
+    .nav-mobile-overlay{padding-top:env(safe-area-inset-top)}
+    .nav-overlay-close{position:absolute;top:1rem;right:1rem;width:44px;height:44px;border:none;border-radius:999px;background:rgba(255,255,255,0.08);color:var(--gold-light);font-size:1.8rem;line-height:1;cursor:pointer}
+    .nav-overlay-close:focus-visible,.back-to-top:focus-visible{outline:3px solid var(--gold-light);outline-offset:3px}
+    .back-to-top{position:fixed;right:max(1rem,env(safe-area-inset-right));bottom:max(1rem,env(safe-area-inset-bottom));z-index:120;display:none;padding:0.75rem 1rem;border:none;border-radius:999px;background:rgba(9,29,53,0.92);color:#fff;font-size:0.78rem;letter-spacing:0.12em;box-shadow:0 8px 24px rgba(0,0,0,0.22)}
+    .back-to-top.show{display:block}
+    .hero,.phase-hero{padding-top:env(safe-area-inset-top)}
+    @media (max-width:768px){
+      .hero{min-height:100svh;height:100svh}
+      .hero-content{padding:0 1.1rem 3.2rem}
+      .hero-title{font-size:clamp(2.4rem,12vw,4rem);line-height:.98}
+      .hero-sub{font-size:.82rem;line-height:1.5}
+      .hero-stats{gap:.9rem;flex-wrap:wrap}
+      .hero-stat-num{font-size:2rem}
+      .countdown-box{gap:.25rem;flex-wrap:nowrap;overflow:hidden}
+      .countdown-item{min-width:0;padding:.15rem .45rem 0}
+      .countdown-item span{font-size:1.7rem}
+      .route-banner{padding:1rem 1rem}
+      .section-inner,.phase-body,.croatia-phase-body{padding-left:1rem;padding-right:1rem}
+      .section-title{font-size:clamp(1.8rem,8vw,2.6rem)}
+      .stats-bar{grid-template-columns:repeat(2,1fr)}
+      .stat-cell{padding:1.1rem .8rem}
+      .stat-num{font-size:2.2rem}
+      .glance-table,.bookings-table,.info-table{font-size:.78rem}
+      .table-scroll{border:1px solid var(--rule);border-radius:10px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+      .glance-table th,.glance-table td,.bookings-table th,.bookings-table td,.info-table td{padding:.75rem .6rem}
+      .phases-grid,.critical-grid,.contacts-grid,.insurance-grid,.checklist-grid{grid-template-columns:1fr}
+      .phase-card{aspect-ratio:4/3}
+      .phase-card-content{padding:1.15rem 1rem}
+      .phase-name{font-size:1.55rem}
+      .croatia-with-map{grid-template-columns:1fr}
+      .cruise-map-img{width:100%}
+      .footer{padding:3rem 1rem}
+    }
+    
 </style>
 </head>
 <body>
@@ -1630,30 +1667,7 @@ function updateCountdown() {
 setInterval(updateCountdown, 1000);
 updateCountdown();
 </script>
-<script>
-(function(){
-  const btn = document.getElementById('navHamburger');
-  const overlay = document.getElementById('navOverlay');
-  if (!btn || !overlay) return;
-  function closeMenu() {
-    btn.classList.remove('open');
-    overlay.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  btn.addEventListener('click', function(){
-    const isOpen = overlay.classList.contains('open');
-    if (isOpen) { closeMenu(); }
-    else {
-      btn.classList.add('open');
-      overlay.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-  });
-  overlay.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', closeMenu);
-  });
-})();
-</script>
+
 <section id="additional-tickets">
 <div class="section-inner">
 <div class="section-header reveal">
@@ -1670,97 +1684,44 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+
+
 <script>
 (function(){
-  try {
-    const dataEl = document.getElementById('travel-data-json');
-    const dashboard = document.getElementById('travel-dashboard');
-    if (!dataEl || !dashboard) return;
-    const itinerary = JSON.parse(dataEl.textContent || '[]');
-    const now = new Date();
-    const fmt = d => d.toISOString().slice(0,10);
-    const today = fmt(now);
-    const tomorrow = fmt(new Date(now.getTime() + 86400000));
-    const inRange = (d, start, end) => d >= start && d <= end;
-    const spanItems = itinerary.filter(i => i.endDate);
-    const todaySpan = spanItems.find(i => inRange(today, i.date, i.endDate)) || null;
-    const tomorrowSpan = spanItems.find(i => inRange(tomorrow, i.date, i.endDate)) || null;
-    const upcoming = itinerary.filter(i => i.date >= today);
-    const todayItem = todaySpan || itinerary.find(i => i.date === today) || upcoming[0] || null;
-    const tomorrowItem = tomorrowSpan || itinerary.find(i => i.date === tomorrow) || upcoming[1] || null;
-    const spanLabel = todaySpan ? `${todaySpan.title}` : (todayItem ? todayItem.title : 'No active trip block');
-    const cruiseBlock = itinerary.find(i => i.type === 'cruise' && i.days && i.endDate);
-    const cruiseDay = cruiseBlock ? (() => {
-      const start = new Date(cruiseBlock.date + 'T00:00:00');
-      const t = new Date(today + 'T00:00:00');
-      const n = Math.floor((t - start) / 86400000) + 1;
-      return n >= 1 && n <= cruiseBlock.days ? `Croatia Cruise · Day ${n}` : null;
-    })() : null;
-    const todayLine = cruiseDay ? `You are on ${cruiseDay}` : '';
-    const alertItems = itinerary.filter(i => !i.title || !i.date || (!i.type && !i.endDate));
-    const missingRefs = itinerary.filter(i => !i.ref && !i.booking && !i.ticket);
-    const alertSummary = alertItems.length ? `${alertItems.length} items require review` : 'All tracked items look complete';
-
-    const destinationZones = {
-      Singapore: 'Asia/Singapore', Milan: 'Europe/Rome', Zagreb: 'Europe/Zagreb', Dubrovnik: 'Europe/Zagreb', Bilbao: 'Europe/Madrid', Bordeaux: 'Europe/Paris', Epernay: 'Europe/Paris', Antibes: 'Europe/Paris', Nice: 'Europe/Paris', Naples: 'Europe/Rome', Ischia: 'Europe/Rome', Monopoli: 'Europe/Rome', Vieste: 'Europe/Rome', Rome: 'Europe/Rome', Madrid: 'Europe/Madrid', 'Hong Kong': 'Asia/Hong_Kong', Perth: 'Australia/Perth', Adelaide: 'Australia/Adelaide'
-    };
-
-    const weatherCoords = {
-      Singapore: [1.3521, 103.8198], Milan: [45.4642, 9.19], Zagreb: [45.815, 15.9819], Dubrovnik: [42.6507, 18.0944], Bilbao: [43.263, -2.935], Bordeaux: [44.8378, -0.5792], Epernay: [49.04, 3.954], Antibes: [43.58, 7.12], Nice: [43.7102, 7.262], Naples: [40.8518, 14.2681], Ischia: [40.732, 13.94], Monopoli: [40.95, 17.3], Vieste: [41.882, 16.178], Rome: [41.9028, 12.4964], Madrid: [40.4168, -3.7038], 'Hong Kong': [22.3193, 114.1694], Perth: [-31.9523, 115.8613], Adelaide: [-34.9285, 138.6007]
-    };
-    const weatherKey = (item) => {
-      if (!item) return 'Adelaide';
-      return Object.keys(weatherCoords).find(k => item.title && item.title.includes(k)) || 'Adelaide';
-    };
-    const zoneGuess = (item) => {
-      if (!item) return 'Australia/Adelaide';
-      const hit = Object.keys(destinationZones).find(k => item.title && item.title.includes(k));
-      return hit ? destinationZones[hit] : 'Australia/Adelaide';
-    };
-    const set = (id, val) => { const el = document.getElementById(id); if (el) el.innerHTML = val; };
-    const alertCount = itinerary.filter(i => !i.title || !i.date).length;
-    set('today-content', todayItem ? `${todayItem.title}<br><small>${todayItem.date}</small><br><em>${cruiseDay || spanLabel}</em>${todayLine ? '<br><span style="font-size:0.85rem;opacity:0.8;">' + todayLine + '</span>' : ''}` : 'No trip scheduled today');
-    set('tomorrow-content', tomorrowItem ? `${tomorrowItem.title}<br><small>${tomorrowItem.date}</small>` : 'No trip scheduled tomorrow');
-    const activeSpan = document.getElementById('active-span');
-    if (activeSpan) activeSpan.innerHTML = todaySpan ? `Current block: ${cruiseDay || spanLabel}` : 'No active trip block';
-    const bookingAlerts = document.getElementById('booking-alerts');
-    if (bookingAlerts) bookingAlerts.innerHTML = missingRefs.length ? `${missingRefs.length} items are missing booking references` : 'No missing booking references';
-    const timezoneDisplay = document.getElementById('timezone-display');
-    if (timezoneDisplay) {
-      const zone = zoneGuess(todayItem || tomorrowItem);
-      const localNow = new Intl.DateTimeFormat('en-AU', { timeZone: zone, hour: '2-digit', minute: '2-digit', weekday: 'short', day: '2-digit', month: 'short' }).format(new Date());
-      timezoneDisplay.innerHTML = `Local time now: ${localNow} (${zone})`;
-    }
-
-    const weatherDisplay = document.getElementById('weather-display');
-    if (weatherDisplay) {
-      const wk = weatherKey(todayItem || tomorrowItem);
-      const [lat, lon] = weatherCoords[wk];
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=auto`;
-      fetch(url).then(r => r.json()).then(data => {
-        const t = data?.current?.temperature_2m;
-        weatherDisplay.innerHTML = t != null ? `Weather now: ${Math.round(t)}&deg;C now` : 'Weather currently unavailable';
-      }).catch(() => { weatherDisplay.innerHTML = 'Weather currently unavailable'; });
-    }
-    const reviewEl = document.getElementById('build-info');
-    if (reviewEl) reviewEl.innerHTML = `Build v5.0 · ${alertSummary} · ${missingRefs.length} missing refs`;
-    window.travelDashboard = { itinerary, today, tomorrow, alertCount };
-  } catch(e) { console.warn(e); }
+  const navHamburger = document.getElementById('navHamburger');
+  const navOverlay = document.getElementById('navOverlay');
+  const navOverlayClose = document.getElementById('navOverlayClose');
+  const backToTop = document.getElementById('backToTop');
+  if(!navHamburger || !navOverlay) return;
+  const focusables = () => navOverlay.querySelectorAll('a, button:not([disabled])');
+  function openNav(){
+    navOverlay.classList.add('open');
+    navHamburger.classList.add('open');
+    navHamburger.setAttribute('aria-expanded','true');
+    navOverlay.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+    const first = navOverlayClose || focusables()[0] || navHamburger;
+    first.focus();
+  }
+  function closeNav(){
+    navOverlay.classList.remove('open');
+    navHamburger.classList.remove('open');
+    navHamburger.setAttribute('aria-expanded','false');
+    navOverlay.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    navHamburger.focus();
+  }
+  navHamburger.addEventListener('click', () => navOverlay.classList.contains('open') ? closeNav() : openNav());
+  if(navOverlayClose) navOverlayClose.addEventListener('click', closeNav);
+  navOverlay.addEventListener('click', (e) => { if(e.target === navOverlay) closeNav(); });
+  navOverlay.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && navOverlay.classList.contains('open')) closeNav(); });
+  if(backToTop){
+    window.addEventListener('scroll', () => backToTop.classList.toggle('show', window.scrollY > 700), {passive:true});
+    backToTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+  }
 })();
 </script>
-<script>
-const navHamburger = document.getElementById('navHamburger');
-const navOverlay = document.getElementById('navOverlay');
-const navOverlayClose = document.getElementById('navOverlayClose');
-const backToTop = document.getElementById('backToTop');
-function openNav(){ navOverlay.classList.add('open'); navHamburger.classList.add('open'); navHamburger.setAttribute('aria-expanded','true'); navOverlay.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; (navOverlayClose||navOverlay.querySelector('a'))?.focus(); }
-function closeNav(){ navOverlay.classList.remove('open'); navHamburger.classList.remove('open'); navHamburger.setAttribute('aria-expanded','false'); navOverlay.setAttribute('aria-hidden','true'); document.body.style.overflow=''; navHamburger.focus(); }
-if(navHamburger){ navHamburger.addEventListener('click', ()=> navOverlay.classList.contains('open') ? closeNav() : openNav()); }
-if(navOverlayClose){ navOverlayClose.addEventListener('click', closeNav); }
-if(navOverlay){ navOverlay.addEventListener('click', (e)=>{ if(e.target===navOverlay) closeNav(); }); navOverlay.querySelectorAll('a').forEach(a=>a.addEventListener('click', closeNav)); }
-document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && navOverlay.classList.contains('open')) closeNav(); });
-window.addEventListener('scroll', ()=>{ if(!backToTop) return; backToTop.classList.toggle('show', window.scrollY > 700); });
-if(backToTop){ backToTop.addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'})); }
-</script>
+
 </body>
 </html>
