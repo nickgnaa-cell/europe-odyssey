@@ -209,6 +209,13 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
 .nav-mobile-overlay a { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; padding: 1.1rem 2rem; border-bottom: 1px solid rgba(168,130,30,0.12); width: 100%; text-align: center; transition: color 0.2s, background 0.2s; }
 .nav-mobile-overlay a:hover, .nav-mobile-overlay a:active { color: var(--gold-light); background: rgba(168,130,0.07); }
 .nav-mobile-overlay .nav-mobile-brand { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--gold-light); letter-spacing: 0.12em; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(168,130,30,0.3); padding-bottom: 1.5rem; width: 80%; text-align: center; }
+.nav-mobile-close { position: absolute; top: 8px; right: 1.5rem; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; padding: 0; z-index: 210; }
+.nav-mobile-close::before, .nav-mobile-close::after { content: ''; position: absolute; width: 24px; height: 2px; background: var(--gold-light); border-radius: 2px; transition: opacity 0.2s; }
+.nav-mobile-close::before { transform: rotate(45deg); }
+.nav-mobile-close::after { transform: rotate(-45deg); }
+.nav-mobile-close:hover::before, .nav-mobile-close:hover::after, .nav-mobile-close:active::before, .nav-mobile-close:active::after { opacity: 0.65; }
+.nav-mobile-back { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.45); background: none; border: none; cursor: pointer; margin-top: 1.75rem; padding: 0.6rem 1rem; transition: color 0.2s; }
+.nav-mobile-back:hover, .nav-mobile-back:active { color: var(--gold-light); }
 
 @media (min-width: 901px) {
   .nav-hamburger { display: none; }
@@ -390,6 +397,7 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
 <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation"><span></span><span></span><span></span></button>
 </nav>
 <div class="nav-mobile-overlay" id="navOverlay">
+<button class="nav-mobile-close" id="navClose" aria-label="Close navigation"></button>
 <div class="nav-mobile-brand">European Odyssey 2026</div>
 <a href="#overview" class="nav-overlay-link">Overview</a>
 <a href="#phases" class="nav-overlay-link">Destinations</a>
@@ -399,6 +407,7 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
 <a href="#flights" class="nav-overlay-link">Flights</a>
 <a href="#rail" class="nav-overlay-link">Rail</a>
 <a href="#checklist" class="nav-overlay-link">Checklist</a>
+<button class="nav-mobile-back" id="navBack" aria-label="Close navigation">&larr; Back to page</button>
 </div>
 <section class="hero" id="home">
 <div class="hero-bg" id="heroBg"></div>
@@ -1650,6 +1659,16 @@ updateCountdown();
   });
   overlay.querySelectorAll('a').forEach(function(a){
     a.addEventListener('click', closeMenu);
+  });
+  var closeBtn = document.getElementById('navClose');
+  if (closeBtn) { closeBtn.addEventListener('click', closeMenu); }
+  var backBtn = document.getElementById('navBack');
+  if (backBtn) { backBtn.addEventListener('click', closeMenu); }
+  overlay.addEventListener('click', function(e){
+    if (e.target === overlay) { closeMenu(); }
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && overlay.classList.contains('open')) { closeMenu(); }
   });
 })();
 </script>
