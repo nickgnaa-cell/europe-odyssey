@@ -372,11 +372,7 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
 }
 
 @media (max-width:980px){.croatia-map-wrapper{padding:0.4rem!important}.croatia-map-wrapper img{transform:scale(1.01)!important}}
-
-    .nav-mobile-overlay{padding-top:env(safe-area-inset-top)}
-    .nav-overlay-close{position:absolute;top:1rem;right:1rem;width:44px;height:44px;border:none;border-radius:999px;background:rgba(255,255,255,0.08);color:var(--gold-light);font-size:1.8rem;line-height:1;cursor:pointer}
-    .nav-overlay-close:focus-visible{outline:3px solid var(--gold-light);outline-offset:3px}
-    </style>
+</style>
 </head>
 <body>
 <nav>
@@ -394,7 +390,7 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
 <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation"><span></span><span></span><span></span></button>
 </nav>
 <div class="nav-mobile-overlay" id="navOverlay">
-<div class="nav-mobile-brand">European Odyssey 2026</div><button class="nav-overlay-close" id="navOverlayClose" aria-label="Close menu">×</button>
+<div class="nav-mobile-brand">European Odyssey 2026</div>
 <a href="#overview" class="nav-overlay-link">Overview</a>
 <a href="#phases" class="nav-overlay-link">Destinations</a>
 <a href="#bookings" class="nav-overlay-link">Bookings</a>
@@ -1751,36 +1747,5 @@ if ('serviceWorker' in navigator) {
   } catch(e) { console.warn(e); }
 })();
 </script>
-
-<script>
-(function(){
-  const navHamburger = document.getElementById('navHamburger');
-  const navOverlay = document.getElementById('navOverlay');
-  const navOverlayClose = document.getElementById('navOverlayClose');
-  if(!navHamburger || !navOverlay) return;
-  function openNav(){
-    navOverlay.classList.add('open');
-    navHamburger.classList.add('open');
-    navHamburger.setAttribute('aria-expanded','true');
-    navOverlay.setAttribute('aria-hidden','false');
-    document.body.style.overflow='hidden';
-    (navOverlayClose || navOverlay.querySelector('a') || navHamburger).focus();
-  }
-  function closeNav(){
-    navOverlay.classList.remove('open');
-    navHamburger.classList.remove('open');
-    navHamburger.setAttribute('aria-expanded','false');
-    navOverlay.setAttribute('aria-hidden','true');
-    document.body.style.overflow='';
-    navHamburger.focus();
-  }
-  navHamburger.addEventListener('click', ()=> navOverlay.classList.contains('open') ? closeNav() : openNav());
-  if(navOverlayClose) navOverlayClose.addEventListener('click', closeNav);
-  navOverlay.addEventListener('click', (e)=>{ if(e.target === navOverlay) closeNav(); });
-  navOverlay.querySelectorAll('a').forEach(a=>a.addEventListener('click', closeNav));
-  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && navOverlay.classList.contains('open')) closeNav(); });
-})();
-</script>
-
 </body>
 </html>
