@@ -385,6 +385,7 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
 <nav>
 <a class="nav-brand" href="#">European Odyssey 2026 Travel Status</a>
 <ul class="nav-links">
+<li><a href="#calendar">Calendar</a></li>
 <li><a href="#overview">Overview</a></li>
 <li><a href="#phases">Destinations</a></li>
 <li><a href="#bookings">Bookings</a></li>
@@ -401,6 +402,7 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
 <div class="nav-mobile-overlay" id="navOverlay">
 <button class="nav-mobile-close" id="navClose" aria-label="Close navigation"></button>
 <div class="nav-mobile-brand">European Odyssey 2026</div>
+<a href="#calendar" class="nav-overlay-link">Calendar</a>
 <a href="#overview" class="nav-overlay-link">Overview</a>
 <a href="#phases" class="nav-overlay-link">Destinations</a>
 <a href="#bookings" class="nav-overlay-link">Bookings</a>
@@ -483,7 +485,130 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
 <div style="text-align:right;margin-top:14px;font-size:0.75rem;opacity:0.65;letter-spacing:0.04em;">
 <span id="build-info"></span>
 </div>
-</section><section id="overview">
+</section>
+<style>
+#calendar .cal-months{display:flex;gap:0.7rem;overflow-x:auto;padding-bottom:0.4rem;margin:1.5rem 0 0.8rem;-webkit-overflow-scrolling:touch;}
+#calendar .cal-mini{flex:0 0 auto;min-width:148px;background:#fff;border-top:3px solid var(--gold);box-shadow:0 2px 12px rgba(9,29,53,0.06);padding:0.6rem;}
+#calendar .cal-mini h5{font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:600;color:var(--navy);margin:0 0 0.4rem;text-align:center;}
+#calendar .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;}
+#calendar .cal-dow{font-size:0.48rem;color:var(--steel);text-align:center;}
+#calendar .cal-cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:0.58rem;border-radius:3px;color:#c2ccd6;position:relative;}
+#calendar .cal-cell.trip{color:var(--charcoal);}
+#calendar .cal-cell.stay{background:rgba(110,143,168,0.16);}
+#calendar .cal-cell.move{background:rgba(168,130,30,0.18);color:var(--navy);font-weight:500;}
+#calendar .cal-cell.evt::after{content:'';position:absolute;bottom:1px;width:4px;height:4px;border-radius:50%;background:var(--gold);}
+#calendar .cal-cell.click{cursor:pointer;}
+#calendar .cal-legend{display:flex;flex-wrap:wrap;gap:0.9rem;font-size:0.68rem;color:var(--slate);margin-bottom:1rem;}
+#calendar .cal-legend span{display:flex;align-items:center;gap:0.35rem;}
+#calendar .cal-sw{width:11px;height:11px;border-radius:3px;display:inline-block;}
+#calendar .cal-toggle{font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--navy);background:var(--gold-pale);border:1px solid var(--gold-pale2);border-radius:4px;padding:0.6rem 1.1rem;cursor:pointer;}
+#calendar .cal-agenda{display:none;margin-top:1.2rem;}
+#calendar .cal-agenda.open{display:block;}
+#calendar .cal-day{background:#fff;box-shadow:0 1px 10px rgba(9,29,53,0.05);border-radius:6px;margin-bottom:0.8rem;overflow:hidden;scroll-margin-top:1rem;}
+#calendar .cal-dayhead{display:flex;align-items:baseline;gap:0.6rem;padding:0.6rem 1rem;background:var(--navy);color:#fff;}
+#calendar .cal-dayhead .dn{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;line-height:1;color:var(--gold-light);}
+#calendar .cal-dayhead .dw{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.85;}
+#calendar .cal-dayhead .dl{margin-left:auto;font-size:0.7rem;opacity:0.8;font-style:italic;}
+#calendar .cal-entry{display:flex;align-items:flex-start;gap:0.7rem;padding:0.6rem 1rem;border-bottom:1px solid var(--rule);}
+#calendar .cal-entry:last-child{border-bottom:none;}
+#calendar .cal-entry .ci{flex:0 0 1.5rem;text-align:center;font-size:0.95rem;}
+#calendar .cal-entry .cb{flex:1;min-width:0;}
+#calendar .cal-entry .ct{font-size:0.88rem;color:var(--charcoal);line-height:1.4;}
+#calendar .cal-entry .cm{font-size:0.68rem;color:var(--steel);margin-top:0.1rem;}
+#calendar .cal-chip{flex:0 0 auto;align-self:center;font-family:'Courier New',monospace;font-size:0.62rem;color:var(--slate);background:rgba(58,82,106,0.1);padding:0.18rem 0.45rem;border-radius:3px;white-space:nowrap;text-decoration:none;}
+#calendar .cal-chip:hover{background:var(--gold-pale2);}
+</style>
+<section id="calendar" style="background:var(--off-white)">
+<div class="section-inner">
+<div class="section-header">
+<div class="chapter-label">At a Glance</div>
+<h2 class="section-title">Trip Calendar</h2>
+<p class="section-desc">Your whole journey, day by day. The three-month strip shows the shape of the trip — tap any marked day to open it below. Each entry links to its full detail in the document.</p>
+</div>
+<div class="cal-months" id="cal-months"></div>
+<div class="cal-legend"><span><i class="cal-sw" style="background:rgba(110,143,168,0.5)"></i> Stay</span><span><i class="cal-sw" style="background:rgba(168,130,30,0.5)"></i> Travel day</span><span><i class="cal-sw" style="background:var(--gold)"></i> Booking / event</span></div>
+<button class="cal-toggle" id="cal-toggle">Show day-by-day agenda ▾</button>
+<div class="cal-agenda" id="cal-agenda"></div>
+</div>
+</section>
+<script>(function(){
+  var el=document.getElementById('travel-data-json'); if(!el) return;
+  var DATA=JSON.parse(el.textContent||'[]');
+  var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var MONF=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var WDF=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var D=function(s){return new Date(s+'T00:00:00');};
+  var place=function(t){return t.split(' · ')[0];};
+  var stays=DATA.filter(function(d){return d.type==='stay'||d.type==='cruise';});
+  var activeStay=function(s){return stays.find(function(x){return s>=x.date && s<=(x.endDate||x.date);});};
+  var hasEntries=function(s){return DATA.some(function(d){return d.date===s;});};
+  function dayType(s){
+    if(DATA.some(function(d){return d.date===s && d.type==='event';})) return 'evt';
+    if(DATA.some(function(d){return d.date===s && ['flight','rail','ferry','travel'].indexOf(d.type)>=0;})) return 'move';
+    if(activeStay(s)) return 'stay';
+    return DATA.some(function(d){return d.date===s;})?'trip':'';
+  }
+  function buildMonth(y,mi){
+    var dim=new Date(y,mi+1,0).getDate();
+    var lead=(new Date(y,mi,1).getDay()+6)%7;
+    var c='';
+    ['M','T','W','T','F','S','S'].forEach(function(x){c+='<div class="cal-dow">'+x+'</div>';});
+    for(var i=0;i<lead;i++) c+='<div class="cal-cell"></div>';
+    for(var dd=1;dd<=dim;dd++){
+      var s=y+'-'+String(mi+1).padStart(2,'0')+'-'+String(dd).padStart(2,'0');
+      var t=dayType(s); var cls='cal-cell'; if(t) cls+=' trip';
+      if(t==='stay') cls+=' stay'; if(t==='move') cls+=' move'; if(t==='evt') cls+=' stay evt';
+      var attr=''; if(hasEntries(s)){ cls+=' click'; attr=' data-go="cd-'+s+'"'; }
+      c+='<div class="'+cls+'"'+attr+'>'+dd+'</div>';
+    }
+    return '<div class="cal-mini"><h5>'+MONF[mi]+' '+y+'</h5><div class="cal-grid">'+c+'</div></div>';
+  }
+  document.getElementById('cal-months').innerHTML=[7,8,9].map(function(mi){return buildMonth(2026,mi);}).join('');
+  function linkFor(d){
+    switch(d.type){
+      case 'flight': return '#flights';
+      case 'rail': return '#rail';
+      case 'ferry': return '#transfers';
+      case 'stay': case 'cruise': return '#bookings';
+      case 'travel': return /Europcar/i.test(d.title)?'#carhire':'#rail';
+      case 'event':
+        if(/champagne|e-bike/i.test(d.title)) return '#phase-iv';
+        if(/lunch|food|regiacorte|grillade/i.test(d.title)) return '#dining';
+        if(/guggenheim/i.test(d.title)) return '#critical';
+        return '#phases';
+      default: return '#overview';
+    }
+  }
+  var LBL={'#flights':'Flights','#rail':'Rail','#transfers':'Ferries','#bookings':'Bookings','#carhire':'Car Hire','#dining':'Dining','#critical':'Planning','#phase-iv':'Champagne','#phases':'Destinations','#overview':'Overview'};
+  var ICON={flight:'✈️',rail:'🚆',ferry:'⛴️',travel:'🚗',stay:'🏨',cruise:'🛳️',event:'📌'};
+  var ORD={stay:0,cruise:0,flight:1,rail:1,ferry:1,travel:1,event:2};
+  var nights=function(d){ if(!d.endDate) return ''; var n=Math.round((D(d.endDate)-D(d.date))/86400000); return n+' night'+(n>1?'s':''); };
+  var fmtShort=function(s){var d=D(s);return d.getDate()+' '+MON[d.getMonth()];};
+  var byDate={}; DATA.forEach(function(d){(byDate[d.date]=byDate[d.date]||[]).push(d);});
+  var dates=Object.keys(byDate).sort(); var out='';
+  dates.forEach(function(s){
+    var dt=D(s);
+    var items=byDate[s].slice().sort(function(a,b){var x=(ORD[a.type]==null?3:ORD[a.type]),y=(ORD[b.type]==null?3:ORD[b.type]);return x-y;});
+    var as=activeStay(s); var loc=as?place(as.title):'';
+    var rows='';
+    items.forEach(function(d){
+      var ic = d.type==='event' ? (d.icon||ICON.event) : (ICON[d.type]||'•');
+      var ttl=d.title, meta='';
+      if(d.type==='stay'){ ttl='Check in · '+d.title; meta=nights(d)+' · to '+fmtShort(d.endDate); }
+      if(d.type==='cruise'){ meta=nights(d)+' · to '+fmtShort(d.endDate); }
+      var href=linkFor(d), lbl=LBL[href]||'View';
+      rows+='<div class="cal-entry"><div class="ci">'+ic+'</div><div class="cb"><div class="ct">'+ttl+'</div>'+(meta?'<div class="cm">'+meta+'</div>':'')+'</div><a class="cal-chip" href="'+href+'">→ '+lbl+'</a></div>';
+    });
+    out+='<div class="cal-day" id="cd-'+s+'"><div class="cal-dayhead"><span class="dn">'+dt.getDate()+'</span><span class="dw">'+WDF[dt.getDay()]+' · '+MON[dt.getMonth()]+'</span>'+(loc?'<span class="dl">'+loc+'</span>':'')+'</div>'+rows+'</div>';
+  });
+  document.getElementById('cal-agenda').innerHTML=out;
+  var ag=document.getElementById('cal-agenda'), tg=document.getElementById('cal-toggle');
+  tg.addEventListener('click',function(){ var open=ag.classList.toggle('open'); tg.textContent= open?'Hide agenda ▴':'Show day-by-day agenda ▾'; });
+  document.querySelectorAll('#calendar [data-go]').forEach(function(c){
+    c.addEventListener('click',function(){ if(!ag.classList.contains('open')){ ag.classList.add('open'); tg.textContent='Hide agenda ▴'; } var t=document.getElementById(c.getAttribute('data-go')); if(t) setTimeout(function(){t.scrollIntoView({behavior:'smooth',block:'start'});},60); });
+  });
+})();</script>
+<section id="overview">
 <div class="section-inner">
 <div class="section-header reveal">
 <div class="chapter-label">Chapter I</div>
