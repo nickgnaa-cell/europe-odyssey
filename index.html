@@ -1929,5 +1929,18 @@ if ('serviceWorker' in navigator) {
   } catch(e) { console.warn(e); }
 })();
 </script>
+<button id="backToTop" aria-label="Back to top" title="Back to top">↑</button>
+<style>
+#backToTop{position:fixed;bottom:calc(18px + env(safe-area-inset-bottom,0px));right:18px;width:46px;height:46px;border-radius:50%;border:1px solid var(--gold-light);background:var(--navy);color:var(--gold-light);font-size:1.35rem;line-height:1;cursor:pointer;box-shadow:0 4px 14px rgba(9,29,53,0.35);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .25s ease,transform .25s ease,visibility .25s;z-index:9999;display:flex;align-items:center;justify-content:center;padding:0;}
+#backToTop.show{opacity:1;visibility:visible;transform:translateY(0);}
+#backToTop:hover,#backToTop:focus{background:var(--gold);color:var(--navy);border-color:var(--gold);outline:none;}
+@media print{#backToTop{display:none;}}
+</style>
+<script>(function(){
+  var b=document.getElementById('backToTop'); if(!b) return;
+  var onScroll=function(){ if(window.pageYOffset>500){ b.classList.add('show'); } else { b.classList.remove('show'); } };
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  b.addEventListener('click',function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+})();</script>
 </body>
 </html>
