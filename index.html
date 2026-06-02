@@ -1977,5 +1977,49 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('resize',onScroll,{passive:true});
   onScroll();
 })();</script>
+<style>
+#flights .flt{text-decoration:none;white-space:nowrap;}
+#flights .flt-links{white-space:nowrap;font-size:0.86em;}
+#flights .flt-status{color:var(--gold);font-weight:500;border-bottom:1px dashed var(--gold-pale2);}
+#flights .flt-status:hover,#flights .flt-status:focus{color:var(--navy);border-bottom-color:var(--navy);outline:none;}
+#flights .flt-map{color:var(--steel);font-weight:400;border-bottom:1px dashed rgba(110,143,168,0.4);}
+#flights .flt-map:hover,#flights .flt-map:focus{color:var(--navy);border-bottom-color:var(--navy);outline:none;}
+#flights .flt-sep{color:var(--rule);margin:0 0.2rem;}
+#flights .flt .ext{font-size:0.78em;opacity:0.7;}
+</style>
+<script>(function(){
+  // For each flight number in the Flights tables, add two links:
+  //   Status -> Google flight-status card (quick on-time check)
+  //   Map    -> Flightradar24 live map for that flight
+  // Scoped to the "Flight" column only, so booking refs are never touched.
+  // The flight number itself stays as plain text; any number added later is handled automatically.
+  var tables = document.querySelectorAll('#flights table.bookings-table');
+  if(!tables.length) return;
+  var flightRe = /\b([A-Z]{2,3})\s?(\d{1,4})\b/g;
+  tables.forEach(function(table){
+    var heads = table.querySelectorAll('thead th');
+    var idx = -1;
+    heads.forEach(function(th,i){ if(th.textContent.trim().toLowerCase() === 'flight') idx = i; });
+    if(idx < 0) return;
+    table.querySelectorAll('tbody tr').forEach(function(tr){
+      var cell = tr.children[idx];
+      if(!cell || cell.querySelector('a')) return; // skip if already processed
+      var text = cell.textContent;
+      if(!flightRe.test(text)) return;
+      flightRe.lastIndex = 0;
+      cell.innerHTML = text.replace(flightRe, function(match, code, num){
+        var fn = code + num;
+        var statusUrl = 'https://www.google.com/search?q=' + encodeURIComponent(fn + ' flight status');
+        var mapUrl = 'https://www.flightradar24.com/data/flights/' + fn.toLowerCase();
+        return match
+          + ' <span class="flt-links">'
+          + '<a class="flt flt-status" target="_blank" rel="noopener" aria-label="On-time status for flight ' + fn + '" href="' + statusUrl + '">Status <span class="ext">\u2197</span></a>'
+          + '<span class="flt-sep">\u00b7</span>'
+          + '<a class="flt flt-map" target="_blank" rel="noopener" aria-label="Live map for flight ' + fn + '" href="' + mapUrl + '">Map <span class="ext">\u2197</span></a>'
+          + '</span>';
+      });
+    });
+  });
+})();</script>
 </body>
 </html>
