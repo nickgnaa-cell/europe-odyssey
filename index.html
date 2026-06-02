@@ -204,7 +204,7 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
 .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-.nav-mobile-overlay { display: none; position: fixed; inset: 0; z-index: 150; background: rgba(9,29,53,0.98); backdrop-filter: blur(16px); flex-direction: column; align-items: center; justify-content: center; gap: 0; }
+.nav-mobile-overlay { display: none; position: fixed; inset: 0; z-index: 150; background: rgba(9,29,53,0.98); backdrop-filter: blur(16px); flex-direction: column; align-items: center; justify-content: center; gap: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 3.5rem 0; }
 .nav-mobile-overlay.open { display: flex; }
 .nav-mobile-overlay a { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; padding: 1.1rem 2rem; border-bottom: 1px solid rgba(168,130,30,0.12); width: 100%; text-align: center; transition: color 0.2s, background 0.2s; }
 .nav-mobile-overlay a:hover, .nav-mobile-overlay a:active { color: var(--gold-light); background: rgba(168,130,0.07); }
@@ -1805,10 +1805,28 @@ updateCountdown();
   const btn = document.getElementById('navHamburger');
   const overlay = document.getElementById('navOverlay');
   if (!btn || !overlay) return;
+  var lockedScrollY = 0;
+  function lockScroll() {
+    lockedScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    document.body.style.position = 'fixed';
+    document.body.style.top = '-' + lockedScrollY + 'px';
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+  }
+  function unlockScroll() {
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    window.scrollTo(0, lockedScrollY);
+  }
   function closeMenu() {
+    if (!overlay.classList.contains('open')) return;
     btn.classList.remove('open');
     overlay.classList.remove('open');
-    document.body.style.overflow = '';
+    unlockScroll();
   }
   btn.addEventListener('click', function(){
     const isOpen = overlay.classList.contains('open');
@@ -1816,7 +1834,7 @@ updateCountdown();
     else {
       btn.classList.add('open');
       overlay.classList.add('open');
-      document.body.style.overflow = 'hidden';
+      lockScroll();
     }
   });
   overlay.querySelectorAll('a').forEach(function(a){
