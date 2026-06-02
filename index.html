@@ -1631,7 +1631,7 @@ background-repeat: no-repeat;"></div>
 <table class="info-table">
 <tr><td>Lunch</td><td>Thu 10 Sep · 12:30 · table for 2 · <span class="b-ref">Confirmed</span></td></tr>
 <tr><td>Where</td><td><a class="b-ref" href="https://www.google.com/maps/search/?api=1&amp;query=16+Rue+de+Reims%2C+51200+%C3%89pernay%2C+France" target="_blank">📍</a> 16 Rue de Reims, 51200 Épernay</td></tr>
-<tr><td>Contact</td><td>Kristel · +33 3 26 55 32 81 · grilla2gourmande@aol.com</td></tr>
+<tr><td>Contact</td><td>Kristel · <a href="tel:+33326553281" style="color:inherit;text-decoration:underline;">+33 3 26 55 32 81</a> · <a href="mailto:grilla2gourmande@aol.com" style="color:inherit;text-decoration:underline;">grilla2gourmande@aol.com</a></td></tr>
 <tr><td>Reconfirm</td><td>Confirm arrival ~1 week prior (as requested)</td></tr>
 <tr><td>Note</td><td>Quiet table requested · special lunch</td></tr>
 </table>
@@ -1641,7 +1641,7 @@ background-repeat: no-repeat;"></div>
 <table class="info-table">
 <tr><td>Lunch</td><td>Wed 30 Sep · 1:00 PM · table for 2 · <span class="b-ref">Confirmed</span></td></tr>
 <tr><td>Where</td><td><a class="b-ref" href="https://www.google.com/maps/search/?api=1&amp;query=Regiacorte+Piazza+San+Pietro+Caveoso+Matera" target="_blank">📍</a> Piazza S. Pietro Caveoso, 75100 Matera</td></tr>
-<tr><td>Contact</td><td>+39 0835 312914</td></tr>
+<tr><td>Contact</td><td><a href="tel:+390835312914" style="color:inherit;text-decoration:underline;">+39 0835 312914</a></td></tr>
 <tr><td>Getting there</td><td><a class="b-ref" href="https://maps.google.com/?q=Parcheggio+Via+Saragat,+Via+Giuseppe+Saragat,+75100+Matera+MT,+Italy" target="_blank">📍</a> Via Saragat car park → Sassi → restaurant (Matera day trip, 30 Sep)</td></tr>
 <tr><td>Note</td><td>Table with a view requested · outdoor service is weather-dependent</td></tr>
 </table>
@@ -1651,7 +1651,7 @@ background-repeat: no-repeat;"></div>
 <table class="info-table">
 <tr><td>When</td><td>Fri 9 Oct · 09:30–13:30 · <span class="b-ref">Confirmed</span></td></tr>
 <tr><td>Host</td><td>Luca Cardente · foodiesofrome · @foodiesofrome</td></tr>
-<tr><td>Contact</td><td>+39 338 2123102 · WhatsApp or calls</td></tr>
+<tr><td>Contact</td><td><a href="tel:+393382123102" style="color:inherit;text-decoration:underline;">+39 338 2123102</a> · WhatsApp or calls</td></tr>
 <tr><td>Meeting Point</td><td><a class="b-ref" href="https://www.google.com/maps/search/?api=1&amp;query=ASD+Bici+Club+Testaccio,+Ex+Mattatoio,+Rome,+Italy" target="_blank">📍</a> ASD Bici Club Testaccio, Ex Mattatoio</td></tr>
 <tr><td>Notes</td><td>Confident cycling required · comfortable dress</td></tr>
 </table>
@@ -1941,6 +1941,23 @@ if ('serviceWorker' in navigator) {
   var onScroll=function(){ if(window.pageYOffset>500){ b.classList.add('show'); } else { b.classList.remove('show'); } };
   window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
   b.addEventListener('click',function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+})();</script>
+<style>
+.nav-links a.nav-active{color:var(--gold-light);border-bottom:1.5px solid var(--gold-light);padding-bottom:3px;}
+.nav-mobile-overlay a.nav-active{color:var(--gold-light);}
+</style>
+<script>(function(){
+  var links=[].slice.call(document.querySelectorAll('.nav-links a[href^="#"], .nav-mobile-overlay a[href^="#"]'));
+  if(!links.length) return;
+  var targets=[]; links.forEach(function(a){ var id=a.getAttribute('href').slice(1); if(id && document.getElementById(id) && targets.indexOf(id)<0) targets.push(id); });
+  function onScroll(){
+    var y=window.pageYOffset+140, current=null, best=-Infinity;
+    targets.forEach(function(id){ var el=document.getElementById(id); if(!el) return; var t=el.getBoundingClientRect().top+window.pageYOffset; if(t<=y && t>best){ best=t; current=id; } });
+    links.forEach(function(a){ a.classList.toggle('nav-active', !!current && a.getAttribute('href')==='#'+current); });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll,{passive:true});
+  onScroll();
 })();</script>
 </body>
 </html>
