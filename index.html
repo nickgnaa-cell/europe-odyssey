@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
 <title>European Odyssey 2026 Travel Status | Nicola &amp; Donna Giannetta</title>
 <meta content="#091D35" name="theme-color"/>
 <meta name="description" content="European Odyssey 2026 — Nicola &amp; Donna Giannetta · 14 August – 16 October 2026 · 64 days, 9 countries, 18 destinations."/>
@@ -32,7 +32,7 @@
   --body-text: #2C3E50;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body { font-family: 'Jost', sans-serif; font-weight: 300; color: var(--body-text); background: var(--off-white); overflow-x: hidden; }
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--navy); }
@@ -44,7 +44,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 3rem;
 .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; transition: color 0.2s; }
 .nav-links a:hover { color: var(--gold-light); }
 
-.hero { position: relative; height: 100vh; min-height: 700px; display: flex; align-items: flex-end; overflow: hidden; }
+.hero { position: relative; height: 100vh; height: 100svh; min-height: 700px; display: flex; align-items: flex-end; overflow: hidden; }
 .hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center 30%; transform: scale(1.05); transition: transform 8s ease; }
 .hero-bg.loaded { transform: scale(1); }
 .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(9,29,53,0.2) 0%, rgba(9,29,53,0.1) 30%, rgba(9,29,53,0.65) 70%, rgba(9,29,53,0.92) 100%); }
@@ -66,7 +66,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 3rem;
 .route-city:hover { color: var(--gold-light); }
 .route-arrow { color: var(--gold); font-size: 0.65rem; opacity: 0.5; }
 
-section { scroll-margin-top: 60px; }
+section { scroll-margin-top: 72px; }
 .section-inner { max-width: 1160px; margin: 0 auto; padding: 6rem 3rem; }
 .section-header { margin-bottom: 4rem; }
 .chapter-label { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 1rem; }
@@ -379,6 +379,32 @@ footer { background: var(--navy); padding: 4rem 6rem; text-align: center; border
 }
 
 @media (max-width:980px){.croatia-map-wrapper{padding:0.4rem!important}.croatia-map-wrapper img{transform:scale(1.01)!important}}
+
+/* --- touch & mobile refinements (added) --- */
+a, button, .b-ref, .nav-hamburger { -webkit-tap-highlight-color: rgba(168,130,30,0.18); touch-action: manipulation; }
+@media (pointer: coarse) { .b-ref { padding: 0.4rem 0.55rem; font-size: 0.85rem; } }
+@media (max-width: 900px) {
+  nav { padding-left: max(1.5rem, env(safe-area-inset-left)); padding-right: max(1.5rem, env(safe-area-inset-right)); }
+  .nav-mobile-overlay { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
+}
+/* --- included day tours (added) --- */
+.tours-block { margin-top: 3.25rem; }
+.tours-head { display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap; }
+.tours-title { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 600; color: var(--navy); line-height: 1; }
+.tours-badge { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #2E7D32; background: rgba(46,125,50,0.12); padding: 0.35rem 0.7rem; border-radius: 999px; }
+.tours-intro { font-size: 0.92rem; line-height: 1.6; color: var(--slate); margin: 0.65rem 0 1.6rem; max-width: 60ch; }
+.tour-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+.tour-card { background: var(--white); border: 1px solid var(--rule); border-radius: 5px; padding: 1.5rem 1.6rem; box-shadow: 0 2px 14px rgba(9,29,53,0.05); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.tour-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(9,29,53,0.10); }
+.tour-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.85rem; flex-wrap: wrap; }
+.tour-date { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
+.tour-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--navy); line-height: 1.18; }
+.tour-pills { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: flex-end; flex-shrink: 0; }
+.t-pill { font-size: 0.56rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.34rem 0.62rem; border-radius: 999px; white-space: nowrap; }
+.t-pill.inc { background: rgba(46,125,50,0.12); color: #2E7D32; }
+.t-pill.warn { background: rgba(192,43,43,0.10); color: #C02B2B; }
+.tour-desc { font-size: 0.9rem; line-height: 1.58; color: var(--charcoal); margin-top: 0.7rem; }
+@media (max-width: 760px) { .tour-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -845,6 +871,40 @@ background-repeat: no-repeat;"></div>
 <span><a href="https://www.google.com/maps/search/?api=1&amp;query=Port+of+Rovinj+Croatia" style="display:flex;align-items:center;gap:0.35rem;color:inherit;text-decoration:none;" target="_blank"><span class="dot"></span> Rovinj (Embarkation)</a></span>
 <span><a href="https://www.google.com/maps/search/?api=1&amp;query=Port+of+Dubrovnik+Croatia" style="display:flex;align-items:center;gap:0.35rem;color:inherit;text-decoration:none;" target="_blank"><span class="dot"></span> Dubrovnik (Disembarkation)</a></span>
 </div>
+</div>
+</div>
+<div class="tours-block reveal">
+<div class="tours-head"><span class="tours-title">Included Day Tours</span><span class="tours-badge">✅ 4 Included</span></div>
+<p class="tours-intro">Four guided excursions are included in the Lady Eleganza charter, per Pete's latest update. Drinks, meals, tips, port charges and taxes are also included throughout the cruise.</p>
+<div class="tour-grid">
+<article class="tour-card">
+<div class="tour-card-top">
+<div><div class="tour-date">23 Aug · Kornati Islands</div><div class="tour-title">🍷 Kornati Island Waterfront Lunch</div></div>
+<div class="tour-pills"><span class="t-pill inc">Included</span></div>
+</div>
+<p class="tour-desc">Sail 09:00 · waterfront lunch around noon (Restaurant Aquarius or Festa) · arrive Šibenik 18:30. Cruising through the Kornati National Park archipelago.</p>
+</article>
+<article class="tour-card">
+<div class="tour-card-top">
+<div><div class="tour-date">25 Aug · Bol, Brač Island</div><div class="tour-title">🍷 Stina Winery Tour</div></div>
+<div class="tour-pills"><span class="t-pill inc">Included</span></div>
+</div>
+<p class="tour-desc">Guided tasting at the award-winning Dalmatian winery with local produce · depart Omiš 07:00 · arrive Bol 10:00.</p>
+</article>
+<article class="tour-card">
+<div class="tour-card-top">
+<div><div class="tour-date">26 Aug · Mostar, Bosnia &amp; Herzegovina</div><div class="tour-title">🚌 Bosnia River Safari &amp; Lunch</div></div>
+<div class="tour-pills"><span class="t-pill inc">Included</span><span class="t-pill warn">⚠ Bring Passport</span></div>
+</div>
+<p class="tour-desc">Coach to Mostar → Stari Most (UNESCO bridge) → Neretva river safari → lunch at Tavern Nevetna (meat or vegetarian option). Crosses the border into Bosnia &amp; Herzegovina.</p>
+</article>
+<article class="tour-card">
+<div class="tour-card-top">
+<div><div class="tour-date">28 Aug · Mali Ston / Slano</div><div class="tour-title">🦪 Mali Ston Oyster Tour</div></div>
+<div class="tour-pills"><span class="t-pill inc">Included</span></div>
+</div>
+<p class="tour-desc">Fresh oyster tasting in the Mali Ston bay near Slano — one of Croatia's most celebrated oyster-farming areas.</p>
+</article>
 </div>
 </div>
 </div>
@@ -1595,12 +1655,13 @@ background-repeat: no-repeat;"></div>
 <div class="critical-card">
 <h4>GO!RENT — Monopoli</h4>
 <table class="info-table">
-<tr><td>Provider</td><td>GO!RENT (Monopoli Station)</td></tr>
+<tr><td>Provider</td><td>GO!RENT · Toyota Yaris Cross · €85/day, pay at pickup</td></tr>
 <tr><td>Type</td><td>Local day-use hire · no overnight vehicle required</td></tr>
 <tr><td>Pickup</td><td><a class="b-ref" href="https://www.google.com/maps/search/?api=1&amp;query=Monopoli+Train+Station" target="_blank">📍</a> Monopoli Station · ~15 min walk from Al Console</td></tr>
-<tr><td>Mon 28 Sep 2026</td><td>Pickup 08:30 · flexible return 20:00 · Alberobello · Locorotondo · Masseria lunch</td></tr>
-<tr><td>Wed 30 Sep 2026</td><td>Pickup 08:30 · flexible return 20:00 · Matera day trip</td></tr>
-<tr><td>Notes</td><td>Flexible evening return confirmed · allow 5–10 min for parking and handover</td></tr>
+<tr><td>Mon 28 Sep 2026</td><td>Pickup 08:30 · drop-off 20:00 · Alberobello · Locorotondo · Masseria lunch · Ref GR-7393</td></tr>
+<tr><td>Wed 30 Sep 2026</td><td>Pickup 08:30 · drop-off 18:00 · Matera day trip · Ref GR-7444</td></tr>
+<tr><td>Operator</td><td>Arianna · +39 389 640 5711 (WhatsApp)</td></tr>
+<tr><td>Notes</td><td>Two separate 1-day hires · contract completed on arrival · allow 5–10 min for parking and handover</td></tr>
 </table>
 </div>
 <div class="critical-card">
