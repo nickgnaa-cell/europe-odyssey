@@ -4,6 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<meta http-equiv="Cache-Control" content="no-cache"/>
 <title>European Odyssey 2026 Travel Status | Nicola &amp; Donna Giannetta</title>
 <meta content="#091D35" name="theme-color"/>
 <meta name="description" content="European Odyssey 2026 — Nicola &amp; Donna Giannetta · 14 August – 16 October 2026 · 64 days, 9 countries, 18 destinations."/>
@@ -65,6 +66,9 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 3rem;
 .route-city { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.15em; color: rgba(255,255,255,0.55); text-transform: uppercase; padding: 0 0.7rem; transition: color 0.2s; cursor: default; }
 .route-city:hover { color: var(--gold-light); }
 .route-arrow { color: var(--gold); font-size: 0.65rem; opacity: 0.5; }
+.route-city.done { color: var(--gold-light); opacity: 0.62; }
+.route-city.current { color: #fff; font-weight: 700; opacity: 1; }
+.route-city.current::before { content: ''; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--gold-light); margin-right: 7px; vertical-align: middle; box-shadow: 0 0 7px var(--gold-light); }
 
 section { scroll-margin-top: 72px; }
 .section-inner { max-width: 1160px; margin: 0 auto; padding: 6rem 3rem; }
@@ -2018,7 +2022,7 @@ if ('serviceWorker' in navigator) {
     if (!dataEl || !dashboard) return;
     const itinerary = JSON.parse(dataEl.textContent || '[]');
     const now = new Date();
-    const fmt = d => d.toISOString().slice(0,10);
+    const fmt = d => { const z = n => String(n).padStart(2,'0'); return d.getFullYear() + '-' + z(d.getMonth()+1) + '-' + z(d.getDate()); };
     const today = fmt(now);
     const tomorrow = fmt(new Date(now.getTime() + 86400000));
     const inRange = (d, start, end) => d >= start && d <= end;
@@ -2165,5 +2169,21 @@ if ('serviceWorker' in navigator) {
     });
   });
 })();</script>
+<script>
+/* Journey progress — colours completed legs gold and marks the current leg, using the device's own local date */
+(function(){
+  var cities = document.querySelectorAll('.route-city');
+  var dates = ['2026-08-14','2026-08-15','2026-08-15','2026-08-17','2026-08-19','2026-09-01','2026-09-04','2026-09-08','2026-09-11','2026-09-15','2026-09-18','2026-09-25','2026-10-02','2026-10-04','2026-10-06','2026-10-08','2026-10-11','2026-10-14','2026-10-16'];
+  if (cities.length !== dates.length) return; // safety: skip if the ribbon ever changes
+  var n = new Date(), z = function(x){ return String(x).padStart(2,'0'); };
+  var today = n.getFullYear() + '-' + z(n.getMonth()+1) + '-' + z(n.getDate());
+  var cur = -1;
+  for (var i = 0; i < dates.length; i++){ if (dates[i] <= today) cur = i; }
+  cities.forEach(function(c, i){
+    if (i < cur) c.classList.add('done');
+    else if (i === cur) c.classList.add('current');
+  });
+})();
+</script>
 </body>
 </html>
