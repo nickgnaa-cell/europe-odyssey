@@ -2090,7 +2090,7 @@ if ('serviceWorker' in navigator) {
       }).catch(() => { weatherDisplay.innerHTML = 'Weather currently unavailable'; });
     }
     const reviewEl = document.getElementById('build-info');
-    if (reviewEl) reviewEl.innerHTML = `Build v5.0 · ${alertSummary} · ${missingRefs.length} missing refs`;
+    if (reviewEl) reviewEl.innerHTML = `Build v6.0 · 20 Jun 2026 · ${alertSummary} · ${missingRefs.length} missing refs`;
     window.travelDashboard = { itinerary, today, tomorrow, alertCount };
   } catch(e) { console.warn(e); }
 })();
