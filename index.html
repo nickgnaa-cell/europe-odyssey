@@ -50,10 +50,10 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 3rem;
 .hero-bg.loaded { transform: scale(1); }
 .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(9,29,53,0.2) 0%, rgba(9,29,53,0.1) 30%, rgba(9,29,53,0.65) 70%, rgba(9,29,53,0.92) 100%); }
 .hero-content { position: relative; z-index: 2; width: 100%; padding: 0 6rem 5rem; }
-.hero-eyebrow { font-size: 0.76rem; font-weight: 500; letter-spacing: 0.3em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 1rem; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.3s forwards; }
+.hero-eyebrow { font-size: 0.76rem; font-weight: 500; letter-spacing: 0.3em; color: var(--gold-light); text-shadow: 0 1px 10px rgba(9,29,53,0.92), 0 0 3px rgba(9,29,53,0.7); text-transform: uppercase; margin-bottom: 1rem; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.3s forwards; }
 .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.5rem, 7vw, 6.5rem); font-weight: 300; line-height: 0.95; color: white; letter-spacing: -0.01em; margin-bottom: 1rem; opacity: 0; transform: translateY(30px); animation: fadeUp 0.9s 0.5s forwards; }
 .hero-title em { font-style: italic; color: var(--gold-light); }
-.hero-sub { font-size: 0.9rem; font-weight: 300; letter-spacing: 0.12em; color: rgba(255,255,255,0.75); margin-bottom: 2.5rem; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.7s forwards; }
+.hero-sub { font-size: 0.9rem; font-weight: 300; letter-spacing: 0.12em; color: rgba(255,255,255,0.9); text-shadow: 0 1px 8px rgba(9,29,53,0.7); margin-bottom: 2.5rem; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.7s forwards; }
 .hero-stats { display: flex; gap: 3rem; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.9s forwards; }
 .hero-stat { text-align: left; }
 .hero-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 600; line-height: 1; color: var(--gold-light); }
@@ -1917,7 +1917,7 @@ background-repeat: no-repeat;"></div>
 <div class="footer-line"></div>
 <p class="footer-meta">
     Prepared by Phil Hoffmann Travel  ·  Peter Williams  ·  <a class="__cf_email__" data-cfemail="2c5c4958495e5b6c5c4458024f4341024d59" href="/cdn-cgi/l/email-protection">[email protected]</a><br/>
-    Document Version: Premium v6.5  ·  Updated 4 July 2026  ·  Confidential Client Copy<br/>
+    Document Version: Premium v6.8  ·  Updated 4 July 2026  ·  Confidential Client Copy<br/>
     Outstanding: Naples ↔ Ischia ferry (book before travel)  ·  Bon voyage and safe travels.
   </p>
 </footer>
@@ -2042,6 +2042,7 @@ if ('serviceWorker' in navigator) {
     const fmt = d => { const z = n => String(n).padStart(2,'0'); return d.getFullYear() + '-' + z(d.getMonth()+1) + '-' + z(d.getDate()); };
     const today = fmt(now);
     const tomorrow = fmt(new Date(now.getTime() + 86400000));
+    const tripStart = itinerary.length ? itinerary.map(i => i.date).sort()[0] : today;
     const inRange = (d, start, end) => d >= start && d <= end;
     const spanItems = itinerary.filter(i => i.endDate);
     const todaySpan = spanItems.find(i => inRange(today, i.date, i.endDate)) || null;
@@ -2086,12 +2087,19 @@ if ('serviceWorker' in navigator) {
     set('today-content', todayItem ? `${todayItem.title}<br><small>${todayItem.date}</small><br><em>${cruiseDay || spanLabel}</em>${todayLine ? '<br><span style="font-size:0.85rem;opacity:0.8;">' + todayLine + '</span>' : ''}${portLine(portByDate[today])}${evtLine(today)}` : 'No trip scheduled today');
     set('tomorrow-content', tomorrowItem ? `${tomorrowItem.title}<br><small>${tomorrowItem.date}</small>${portLine(portByDate[tomorrow])}${evtLine(tomorrow)}` : 'No trip scheduled tomorrow');
     const activeSpan = document.getElementById('active-span');
-    if (activeSpan) activeSpan.innerHTML = todaySpan ? `Current block: ${cruiseDay || spanLabel}` : 'No active trip block';
+    if (activeSpan) {
+      if (today < tripStart) {
+        var dts = Math.ceil((new Date(tripStart+'T00:00:00') - new Date(today+'T00:00:00'))/86400000);
+        activeSpan.innerHTML = dts <= 0 ? 'Trip starts today!' : (dts === 1 ? 'Trip starts tomorrow' : 'Trip starts in ' + dts + ' days');
+      } else {
+        activeSpan.innerHTML = todaySpan ? `Current block: ${cruiseDay || spanLabel}` : 'No active trip block';
+      }
+    }
     const bookingAlerts = document.getElementById('booking-alerts');
-    if (bookingAlerts) bookingAlerts.innerHTML = missingRefs.length ? `${missingRefs.length} items are missing booking references` : 'No missing booking references';
+    if (bookingAlerts) bookingAlerts.style.display = 'none';
     const timezoneDisplay = document.getElementById('timezone-display');
     if (timezoneDisplay) {
-      const zone = zoneGuess(todayItem || tomorrowItem);
+      const zone = (today < tripStart) ? 'Australia/Adelaide' : zoneGuess(todayItem || tomorrowItem);
       const localNow = new Intl.DateTimeFormat('en-AU', { timeZone: zone, hour: '2-digit', minute: '2-digit', weekday: 'short', day: '2-digit', month: 'short' }).format(new Date());
       timezoneDisplay.innerHTML = `Local time now: ${localNow} (${zone})`;
     }
@@ -2103,11 +2111,11 @@ if ('serviceWorker' in navigator) {
       const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=auto`;
       fetch(url).then(r => r.json()).then(data => {
         const t = data?.current?.temperature_2m;
-        weatherDisplay.innerHTML = t != null ? `Weather now: ${Math.round(t)}&deg;C now` : 'Weather currently unavailable';
-      }).catch(() => { weatherDisplay.innerHTML = 'Weather currently unavailable'; });
+        if (t != null) { weatherDisplay.innerHTML = `Weather now: ${Math.round(t)}&deg;C`; } else { weatherDisplay.style.display = 'none'; }
+      }).catch(() => { weatherDisplay.style.display = 'none'; });
     }
     const reviewEl = document.getElementById('build-info');
-    if (reviewEl) reviewEl.innerHTML = `Build v6.5 · 4 Jul 2026 · ${alertSummary} · ${missingRefs.length} missing refs`;
+    if (reviewEl) reviewEl.innerHTML = `Build v6.8 · 4 Jul 2026 · ${alertSummary}`;
     window.travelDashboard = { itinerary, today, tomorrow, alertCount };
   } catch(e) { console.warn(e); }
 })();
