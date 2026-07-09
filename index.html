@@ -492,7 +492,7 @@ a, button, .b-ref, .nav-hamburger { -webkit-tap-highlight-color: rgba(168,130,30
 <section id="travel-dashboard" style="max-width:1100px;margin:40px auto 60px auto;padding:18px;border-radius:20px;background:rgba(9,29,53,0.88);color:white;box-shadow:0 12px 30px rgba(0,0,0,0.25);">
 <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
 <h2 style="margin:0;font-size:1.8rem;">🧭 Travel Dashboard</h2>
-<div style="opacity:0.85;font-size:0.95rem;">European Odyssey 2026 Travel Status</div>
+<div style="opacity:0.85;font-size:0.95rem;">European Odyssey 2026 Travel Status</div> <button id="today-btn" style="background:var(--gold);color:#091D35;border:none;border-radius:999px;padding:8px 18px;font-weight:600;font-size:0.9rem;cursor:pointer;">📋 Today</button>
 </div>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:20px;">
 <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:16px;">
@@ -1930,7 +1930,7 @@ background-repeat: no-repeat;"></div>
 <div class="footer-line"></div>
 <p class="footer-meta">
     Prepared by Phil Hoffmann Travel  ·  Peter Williams  ·  <a class="__cf_email__" data-cfemail="2c5c4958495e5b6c5c4458024f4341024d59" href="/cdn-cgi/l/email-protection">[email protected]</a><br/>
-    Document Version: Premium v6.10  ·  Updated 4 July 2026  ·  Confidential Client Copy<br/>
+    Document Version: Premium v6.11  ·  Updated 4 July 2026  ·  Confidential Client Copy<br/>
     Outstanding: Naples ↔ Ischia ferry (book before travel)  ·  Bon voyage and safe travels.
   </p>
 </footer>
@@ -2037,6 +2037,7 @@ updateCountdown();
 </div>
 </div>
 </section>
+<div id="today-mode" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(9,29,53,0.97);color:#fff;overflow-y:auto;padding:28px 20px;"></div>
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -2128,7 +2129,65 @@ if ('serviceWorker' in navigator) {
       }).catch(() => { weatherDisplay.style.display = 'none'; });
     }
     const reviewEl = document.getElementById('build-info');
-    if (reviewEl) reviewEl.innerHTML = `Build v6.10 · 4 Jul 2026 · ${alertSummary}`;
+    if (reviewEl) reviewEl.innerHTML = `Build v6.11 · 4 Jul 2026 · ${alertSummary}`;
+    // ===== added features: next-event countdown, progress ticks, Today mode =====
+    const ICONMAP = {flight:'✈️',rail:'🚆',ferry:'⛴️',travel:'🚗',stay:'🏨',cruise:'🛳️',port:'⚓',event:'📌'};
+    const parseTime = (t) => { const m = t && t.match(/(\d{1,2}):(\d{2})/); return m ? (parseInt(m[1],10)*60+parseInt(m[2],10)) : null; };
+    const dtOf = (i) => { const b = new Date(i.date+'T00:00:00'); const mm = parseTime(i.title); if (mm!=null) b.setMinutes(mm); return b; };
+    const iconOf = (i) => i.icon || ICONMAP[i.type] || '•';
+    // Feature 2: live countdown to next event (repurposes #countdown-content)
+    const cdEl = document.getElementById('countdown-content');
+    const tickNext = () => {
+      const nowMs = Date.now();
+      const cands = itinerary.filter(i => i.type!=='stay' && i.type!=='port').map(i => ({i,t:dtOf(i).getTime()})).filter(x => x.t > nowMs-3600000).sort((a,b)=>a.t-b.t);
+      if (!cands.length) { if(cdEl) cdEl.innerHTML='Journey complete 🎉'; return; }
+      const nx = cands[0]; const diff = nx.t - nowMs; const mins = Math.floor(diff/60000); let when;
+      if (mins <= 0) when='happening now';
+      else if (mins < 60) when='in '+mins+'m';
+      else if (mins < 1440) when='in '+Math.floor(mins/60)+'h '+(mins%60)+'m';
+      else { const dd=Math.floor(mins/1440); when='in '+dd+' day'+(dd>1?'s':''); }
+      if (cdEl) cdEl.innerHTML = 'Next: '+iconOf(nx.i)+' '+nx.i.title+'<br><span style="font-weight:400;opacity:0.85;">'+when+'</span>';
+    };
+    tickNext(); setInterval(tickNext, 30000);
+    // Feature 3: per-day progress ticks on Today / Tomorrow
+    const progressLine = (d, span) => {
+      const de = itinerary.filter(i => i.date===d); const parts=[];
+      if (span || de.some(i=>i.type==='stay')) parts.push('✓ Stay');
+      if (de.some(i=>i.type==='event' && i.booking==='confirmed')) parts.push('✓ Activities');
+      if (de.some(i=>['flight','travel','rail','ferry'].indexOf(i.type)>=0)) parts.push('✓ Transport');
+      return parts.length ? '<div style="margin-top:8px;font-size:0.78rem;opacity:0.8;">'+parts.join(' &nbsp;·&nbsp; ')+'</div>' : '';
+    };
+    { const te=document.getElementById('today-content'); if(te && todayItem) te.innerHTML += progressLine(today, todaySpan);
+      const me=document.getElementById('tomorrow-content'); if(me && tomorrowItem) me.innerHTML += progressLine(tomorrow, tomorrowSpan); }
+    // Feature 1: Today mode overlay
+    const buildToday = () => {
+      let focus = today; const hasToday = todaySpan || itinerary.some(i => i.date===today);
+      if (!hasToday && upcoming.length) focus = upcoming[0].date;
+      const span = spanItems.find(i => inRange(focus, i.date, i.endDate)) || null;
+      const de = itinerary.filter(i => i.date===focus && i.type!=='stay').sort((a,b)=>((parseTime(a.title)==null?9999:parseTime(a.title))-(parseTime(b.title)==null?9999:parseTime(b.title))));
+      const nd = fmt(new Date(new Date(focus+'T00:00:00').getTime()+86400000));
+      const nde = itinerary.filter(i => i.date===nd && i.type!=='stay');
+      const dl = new Date(focus+'T00:00:00').toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long'});
+      const sched = de.length ? de.map(e=>'<li style="margin:10px 0;font-size:1.05rem;">'+iconOf(e)+' '+e.title+'</li>').join('') : '<li style="opacity:0.7;">No scheduled commitments — free day</li>';
+      const hotel = span ? span.title : (todayItem ? todayItem.title : '—');
+      const tom = nde.length ? nde.map(e=>e.title).join(' · ') : 'Rest / same base';
+      const box = (label, inner) => '<div style="background:rgba(255,255,255,0.08);border-radius:14px;padding:16px;margin-bottom:14px;"><div style="opacity:0.7;font-size:0.8rem;letter-spacing:0.08em;">'+label+'</div>'+inner+'</div>';
+      const html = '<div style="max-width:640px;margin:0 auto;">'
+        + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;"><h2 style="margin:0;font-family:Cormorant Garamond,serif;font-size:2.1rem;">Today</h2><button id="today-close" style="background:none;border:1px solid rgba(255,255,255,0.4);color:#fff;border-radius:999px;width:42px;height:42px;font-size:1.1rem;cursor:pointer;">✕</button></div>'
+        + '<div style="opacity:0.85;margin-bottom:18px;">'+(focus===today?'':'Next travel day · ')+dl+'</div>'
+        + box('WHERE YOU ARE','<div style="font-size:1.15rem;margin-top:4px;">🏨 '+hotel+'</div>')
+        + box('SCHEDULE','<ul style="list-style:none;padding:0;margin:6px 0 0 0;">'+sched+'</ul>')
+        + box('TOMORROW','<div style="margin-top:4px;">'+tom+'</div>')
+        + '<div style="background:rgba(200,40,40,0.16);border:1px solid rgba(255,120,120,0.35);border-radius:14px;padding:14px;margin-bottom:14px;"><div style="opacity:0.85;font-size:0.8rem;letter-spacing:0.08em;">EMERGENCY</div><div style="margin-top:4px;">🆘 <b>112</b> — EU emergency</div><div style="margin-top:2px;font-size:0.9rem;opacity:0.9;">Australian consular: +61 2 6261 3305</div></div>'
+        + '<div style="display:flex;gap:10px;justify-content:center;margin-top:6px;flex-wrap:wrap;"><button id="today-book" style="background:var(--gold);color:#091D35;border:none;border-radius:999px;padding:10px 20px;font-weight:600;cursor:pointer;">Tickets & bookings</button><button id="today-contacts" style="background:none;border:1px solid rgba(255,255,255,0.4);color:#fff;border-radius:999px;padding:10px 20px;cursor:pointer;">All contacts</button></div>'
+        + '</div>';
+      const ov = document.getElementById('today-mode'); ov.innerHTML = html; ov.style.display='block'; document.body.style.overflow='hidden';
+      const close = () => { ov.style.display='none'; document.body.style.overflow=''; };
+      document.getElementById('today-close').onclick = close;
+      document.getElementById('today-book').onclick = () => { close(); const el=document.getElementById('bookings'); if(el) el.scrollIntoView({behavior:'smooth'}); };
+      document.getElementById('today-contacts').onclick = () => { close(); const el=document.getElementById('contacts'); if(el) el.scrollIntoView({behavior:'smooth'}); };
+    };
+    const tBtn = document.getElementById('today-btn'); if (tBtn) tBtn.onclick = buildToday;
     window.travelDashboard = { itinerary, today, tomorrow, alertCount };
   } catch(e) { console.warn(e); }
 })();
