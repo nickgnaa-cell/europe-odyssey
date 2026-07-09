@@ -1335,6 +1335,39 @@ background-repeat: no-repeat;"></div>
 </div>
 </div>
 </section>
+<style>
+.why-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.7rem 2.6rem; }
+.why-item { border-left:2px solid var(--gold-light); padding-left:1.3rem; }
+.why-item h4 { font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:600; color:var(--navy); margin:0 0 0.45rem; line-height:1.12; }
+.why-item p { font-size:0.94rem; line-height:1.65; color:var(--body-text); margin:0; }
+@media (max-width:760px){ .why-grid{ grid-template-columns:1fr; gap:1.5rem; } }
+</style>
+<section id="why" style="background:var(--off-white);">
+<div class="section-inner">
+<div class="section-header reveal">
+<div class="chapter-label">The Reasoning</div>
+<h2 class="section-title">Why These Places</h2>
+<p class="section-desc">A note to ourselves — why each stop earned its place on the map.</p>
+</div>
+<div class="why-grid">
+<div class="why-item reveal"><h4>Singapore</h4><p>What a place to start. We've been many times, so this is simply a night to land, refresh and enjoy the lounge before the long haul on to Milan.</p></div>
+<div class="why-item reveal"><h4>Milan</h4><p>Really our gateway to Zagreb — but far too good to pass through blind. We'll take in some fantastic sights, above all The Last Supper, and we're looking forward to climbing the cathedral.</p></div>
+<div class="why-item reveal"><h4>Zagreb</h4><p>Somewhere we've never been, and I've heard only good things. There's a real food culture here, and by all accounts the city is extraordinarily beautiful. We can't wait.</p></div>
+<div class="why-item reveal"><h4>The Croatia Cruise</h4><p>We've met our fellow sailors, and now we're simply looking forward to the coast — the stops along the way, the snorkelling, the local cuisine, the wine and the beautiful weather.</p></div>
+<div class="why-item reveal"><h4>Bilbao</h4><p>Bilbao has long been on our radar. Deep in the Basque Country, the pintxos will go down very well — and we'll be meeting our friends from Cambridge, Paula and David, whom we first met in Porto last year.</p></div>
+<div class="why-item reveal"><h4>Bordeaux</h4><p>We wanted to explore the wine country slowly, arriving overland and giving ourselves four unhurried days. We can't look forward enough to the wine tour, the bike tour, and simply wandering beautiful Bordeaux.</p></div>
+<div class="why-item reveal"><h4>Épernay · Champagne</h4><p>Donna's paradise — and mine too, truth be told. This time we're staying longer than our brief, rainy visit last year, and giving ourselves properly over to the champagne houses and long lunches.</p></div>
+<div class="why-item reveal"><h4>Antibes</h4><p>We simply can't wait for the south of France. Friends who hail from here call it magical — and if it's anything like Nice, we're in for something special.</p></div>
+<div class="why-item reveal"><h4>Naples</h4><p>Somewhere we've passed through but never truly stopped. My father came from a town just outside the city, yet always considered himself a Napolitano — so this one is personal. We'll spend our days in a beautiful hotel overlooking the bay at Santa Lucia, and give ourselves over to the food.</p></div>
+<div class="why-item reveal"><h4>Ischia</h4><p>A longer, slower stay, and deliberately so. We've heard so much about Ischia, and unlike Capri or the Amalfi Coast it stays gloriously under the radar — exactly the unhurried, Italian kind of holiday we're after.</p></div>
+<div class="why-item reveal"><h4>Monopoli · Puglia</h4><p>Our base for the week. We'll fan out to the surrounding towns, but Monopoli was the obvious place to park ourselves and settle in.</p></div>
+<div class="why-item reveal"><h4>The Gargano — Vieste &amp; Monte Sant'Angelo</h4><p>Chosen partly for its closeness to relatives near Foggia, but also because it's a breathtaking, under-talked-about corner of Italy we've long wanted to see.</p></div>
+<div class="why-item reveal"><h4>Rome</h4><p>Well — what can I say? The Eternal City, and we love it. We've extended our two days to fit a food tour with a chef who leads us to all the local treats. As an Italian, I can't wait.</p></div>
+<div class="why-item reveal"><h4>Madrid</h4><p>Officially our stopover to catch the flight home — but we love Madrid, and we're looking forward to the tapas and the colour and flavour of the city.</p></div>
+<div class="why-item reveal"><h4>Hong Kong</h4><p>Just one night, and a familiar one. We've stayed before, so it's really only a hop — but what a hop, in business class, on the way home.</p></div>
+</div>
+</div>
+</section>
 <section id="bookings">
 <div class="section-inner">
 <div class="section-header reveal">
@@ -1930,7 +1963,7 @@ background-repeat: no-repeat;"></div>
 <div class="footer-line"></div>
 <p class="footer-meta">
     Prepared by Phil Hoffmann Travel  ·  Peter Williams  ·  <a class="__cf_email__" data-cfemail="2c5c4958495e5b6c5c4458024f4341024d59" href="/cdn-cgi/l/email-protection">[email protected]</a><br/>
-    Document Version: Premium v6.11  ·  Updated 4 July 2026  ·  Confidential Client Copy<br/>
+    Document Version: Premium v6.12  ·  Updated 4 July 2026  ·  Confidential Client Copy<br/>
     Outstanding: Naples ↔ Ischia ferry (book before travel)  ·  Bon voyage and safe travels.
   </p>
 </footer>
@@ -2129,7 +2162,7 @@ if ('serviceWorker' in navigator) {
       }).catch(() => { weatherDisplay.style.display = 'none'; });
     }
     const reviewEl = document.getElementById('build-info');
-    if (reviewEl) reviewEl.innerHTML = `Build v6.11 · 4 Jul 2026 · ${alertSummary}`;
+    if (reviewEl) reviewEl.innerHTML = `Build v6.12 · 4 Jul 2026 · ${alertSummary}`;
     // ===== added features: next-event countdown, progress ticks, Today mode =====
     const ICONMAP = {flight:'✈️',rail:'🚆',ferry:'⛴️',travel:'🚗',stay:'🏨',cruise:'🛳️',port:'⚓',event:'📌'};
     const parseTime = (t) => { const m = t && t.match(/(\d{1,2}):(\d{2})/); return m ? (parseInt(m[1],10)*60+parseInt(m[2],10)) : null; };
