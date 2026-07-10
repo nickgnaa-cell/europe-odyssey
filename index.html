@@ -8,6 +8,15 @@
 <title>European Odyssey 2026 Travel Status | Nicola &amp; Donna Giannetta</title>
 <meta content="#091D35" name="theme-color"/>
 <meta name="description" content="European Odyssey 2026 — Nicola &amp; Donna Giannetta · 14 August – 16 October 2026 · 64 days, 9 countries, 18 destinations."/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="European Odyssey 2026 — Nicola &amp; Donna Giannetta"/>
+<meta property="og:description" content="64 days · 9 countries · 18 destinations · 14 August – 16 October 2026"/>
+<meta property="og:image" content="https://nickgnaa-cell.github.io/europe-odyssey/images/img_0.jpeg"/>
+<meta property="og:url" content="https://nickgnaa-cell.github.io/europe-odyssey/"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="European Odyssey 2026"/>
+<meta name="twitter:description" content="64 days across Europe — Milan, Croatia, Bordeaux, Champagne, Naples, Puglia, Rome &amp; more"/>
+<meta name="twitter:image" content="https://nickgnaa-cell.github.io/europe-odyssey/images/img_0.jpeg"/>
 <link href="manifest.webmanifest" rel="manifest"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -91,7 +100,7 @@ section { scroll-margin-top: 72px; }
 .glance-table tr:hover td { background: var(--gold-pale); transition: background 0.15s; }
 .glance-table td:first-child { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--navy); white-space: nowrap; }
 .ref-code { font-family: 'Courier New', monospace; font-size: 0.78rem; color: var(--slate); background: rgba(58,82,106,0.08); padding: 0.1rem 0.35rem; border-radius: 2px; }
-.tbd { color: var(--steel); font-style: italic; }
+
 
 #phases { background: var(--navy); }
 #phases .section-title { color: white; }
@@ -410,8 +419,17 @@ a, button, .b-ref, .nav-hamburger { -webkit-tap-highlight-color: rgba(168,130,30
 .tour-desc { font-size: 0.9rem; line-height: 1.58; color: var(--charcoal); margin-top: 0.7rem; }
 @media (max-width: 760px) { .tour-grid { grid-template-columns: 1fr; } }
 </style>
+<style>
+.skip-link { position:absolute; top:-48px; left:8px; background:var(--navy); color:var(--gold-light); padding:10px 16px; border-radius:4px; z-index:10001; transition:top 0.2s ease; text-decoration:none; font-size:0.85rem; }
+.skip-link:focus { top:8px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  #heroBg { transform:none !important; }
+}
+</style>
 </head>
 <body>
+<a href="#overview" class="skip-link">Skip to content</a>
 <nav>
 <a class="nav-brand" href="#">European Odyssey 2026 Travel Status</a>
 <ul class="nav-links">
@@ -798,7 +816,7 @@ a, button, .b-ref, .nav-hamburger { -webkit-tap-highlight-color: rgba(168,130,30
 </div>
 </div>
 <div class="phase-card">
-<div class="phase-card-img" style="background-image: 
+<div class="phase-card-img" style="background-color: var(--navy); background-image: 
     linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
     url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&amp;w=1600&amp;auto=format&amp;fit=crop'),
     url('https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?q=80&amp;w=800&amp;auto=format&amp;fit=crop'),
@@ -1965,7 +1983,7 @@ background-repeat: no-repeat;"></div>
 <div class="footer-line"></div>
 <p class="footer-meta">
     Prepared by Phil Hoffmann Travel  ·  Peter Williams  ·  <a class="__cf_email__" data-cfemail="2c5c4958495e5b6c5c4458024f4341024d59" href="/cdn-cgi/l/email-protection">[email protected]</a><br/>
-    Document Version: Premium v6.15  ·  Updated 4 July 2026  ·  Confidential Client Copy<br/>
+    Document Version: Premium v6.16  ·  Updated 4 July 2026  ·  Confidential Client Copy<br/>
     Outstanding: Naples ↔ Ischia ferry (book before travel)  ·  Bon voyage and safe travels.
   </p>
 </footer>
@@ -2164,7 +2182,7 @@ if ('serviceWorker' in navigator) {
       }).catch(() => { weatherDisplay.style.display = 'none'; });
     }
     const reviewEl = document.getElementById('build-info');
-    if (reviewEl) reviewEl.innerHTML = `Build v6.15 · 4 Jul 2026 · ${alertSummary}`;
+    if (reviewEl) reviewEl.innerHTML = `Build v6.16 · 4 Jul 2026 · ${alertSummary}`;
     // ===== added features: next-event countdown, progress ticks, Today mode =====
     const ICONMAP = {flight:'✈️',rail:'🚆',ferry:'⛴️',travel:'🚗',stay:'🏨',cruise:'🛳️',port:'⚓',event:'📌'};
     const parseTime = (t) => { const m = t && t.match(/(\d{1,2}):(\d{2})/); return m ? (parseInt(m[1],10)*60+parseInt(m[2],10)) : null; };
