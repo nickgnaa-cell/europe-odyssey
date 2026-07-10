@@ -1983,7 +1983,7 @@ background-repeat: no-repeat;"></div>
 <div class="footer-line"></div>
 <p class="footer-meta">
     Prepared by Phil Hoffmann Travel  ·  Peter Williams  ·  <a class="__cf_email__" data-cfemail="2c5c4958495e5b6c5c4458024f4341024d59" href="/cdn-cgi/l/email-protection">[email protected]</a><br/>
-    Document Version: Premium v6.16  ·  Updated 4 July 2026  ·  Confidential Client Copy<br/>
+    Document Version: Premium v6.17  ·  Updated 4 July 2026  ·  Confidential Client Copy<br/>
     Outstanding: Naples ↔ Ischia ferry (book before travel)  ·  Bon voyage and safe travels.
   </p>
 </footer>
@@ -2175,14 +2175,14 @@ if ('serviceWorker' in navigator) {
     if (weatherDisplay) {
       const wk = weatherKey(todayItem || tomorrowItem);
       const [lat, lon] = weatherCoords[wk];
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=auto`;
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1`;
       fetch(url).then(r => r.json()).then(data => {
         const t = data?.current?.temperature_2m;
-        if (t != null) { weatherDisplay.innerHTML = `Weather now: ${Math.round(t)}&deg;C`; } else { weatherDisplay.style.display = 'none'; }
+        if (t != null) { var c=(data.current&&data.current.weather_code!=null)?data.current.weather_code:0; var em=(c===0?'☀️':c<=3?'⛅':c<=48?'🌫️':c<=57?'🌦️':c<=67?'🌧️':c<=77?'🌨️':c<=82?'🌦️':c<=86?'🌨️':'⛈️'); var lb=(c===0?'Clear':c<=3?'Partly cloudy':c<=48?'Fog':c<=67?'Rain':c<=77?'Snow':c<=86?'Showers':'Storms'); var hi=(data.daily&&data.daily.temperature_2m_max)?data.daily.temperature_2m_max[0]:null; var lo=(data.daily&&data.daily.temperature_2m_min)?data.daily.temperature_2m_min[0]:null; weatherDisplay.style.display=''; weatherDisplay.innerHTML = em+' '+wk+': '+Math.round(t)+'&deg;C now'+((hi!=null&&lo!=null)?' &middot; '+Math.round(lo)+'&ndash;'+Math.round(hi)+'&deg; today':'')+' &middot; '+lb; } else { weatherDisplay.style.display = 'none'; }
       }).catch(() => { weatherDisplay.style.display = 'none'; });
     }
     const reviewEl = document.getElementById('build-info');
-    if (reviewEl) reviewEl.innerHTML = `Build v6.16 · 4 Jul 2026 · ${alertSummary}`;
+    if (reviewEl) reviewEl.innerHTML = `Build v6.17 · 4 Jul 2026 · ${alertSummary}`;
     // ===== added features: next-event countdown, progress ticks, Today mode =====
     const ICONMAP = {flight:'✈️',rail:'🚆',ferry:'⛴️',travel:'🚗',stay:'🏨',cruise:'🛳️',port:'⚓',event:'📌'};
     const parseTime = (t) => { const m = t && t.match(/(\d{1,2}):(\d{2})/); return m ? (parseInt(m[1],10)*60+parseInt(m[2],10)) : null; };
