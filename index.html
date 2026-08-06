@@ -473,8 +473,8 @@ a, button, .b-ref, .nav-hamburger { -webkit-tap-highlight-color: rgba(168,130,30
 <h1 class="hero-title">European<br/><em>Odyssey</em></h1>
 <p class="hero-sub">Nicola &amp; Donna Giannetta  ·  14 August – 16 October 2026</p>
 <div style="margin:0.6rem 0 1.2rem;">
-<button id="narration-btn" onclick="var a=document.getElementById('trip-narration'); if(a.paused){a.play(); this.textContent='⏸ Pause Narration';} else {a.pause(); this.textContent='▶ Play Narration';}" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.4);color:white;padding:9px 20px;border-radius:999px;font-size:0.9rem;letter-spacing:0.03em;cursor:pointer;backdrop-filter:blur(4px);">▶ Play Narration</button>
-<audio id="trip-narration" preload="none" onended="document.getElementById('narration-btn').textContent='▶ Play Narration';">
+<button id="narration-btn" onclick="var a=document.getElementById('trip-narration'); if(a.paused){a.play(); this.textContent='⏸ Pause Narration';} else {a.pause(); this.textContent='▶ Play Narration';}" style="background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.4);color:white;padding:9px 20px;border-radius:999px;font-size:0.9rem;letter-spacing:0.03em;cursor:pointer;">▶ Play Narration</button>
+<audio id="trip-narration" preload="none" playsinline webkit-playsinline="true" onended="document.getElementById('narration-btn').textContent='▶ Play Narration';">
 <source src="narration.mp3" type="audio/mpeg"/>
 </audio>
 </div>
