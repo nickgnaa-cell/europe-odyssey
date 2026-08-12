@@ -2,7 +2,7 @@
 
 <html lang="en">
 <head>
-<script>window.SITE_BUILD = { version: "v6.36", date: "11 August 2026" };</script>
+<script>window.SITE_BUILD = { version: "v6.37", date: "11 August 2026" };</script>
 <script>window.BB_ANCHORS = {"2026-08-14": "bb-2026-08-14", "2026-08-15": "bb-2026-08-15", "2026-08-17": "bb-2026-08-17", "2026-08-19": "bb-2026-08-19", "2026-09-01": "bb-2026-09-01", "2026-09-04": "bb-2026-09-04", "2026-09-08": "bb-2026-09-08", "2026-09-11": "bb-2026-09-11", "2026-09-15": "bb-2026-09-15", "2026-09-18": "bb-2026-09-18", "2026-09-25": "bb-2026-09-25", "2026-10-02": "bb-2026-10-02", "2026-10-04": "bb-2026-10-04", "2026-10-08": "bb-2026-10-08", "2026-10-09": "bb-2026-10-09", "2026-10-11": "bb-2026-10-11", "2026-10-13": "bb-2026-10-13", "2026-10-14": "bb-2026-10-14", "2026-10-16": "bb-2026-10-16"};
 window.bookingLink = function(dateISO) {
   var id = window.BB_ANCHORS[dateISO];
@@ -545,6 +545,7 @@ a, button, .b-ref, .nav-hamburger { -webkit-tap-highlight-color: rgba(168,130,30
 <div style="background:rgba(255,255,255,0.08);padding:18px;border-radius:16px;">
 <div style="font-size:0.9rem;opacity:0.8;">STATUS</div>
 <div id="countdown-content" style="margin-top:8px;font-size:1.1rem;font-weight:600;">Checking trip status...</div>
+<div id="days-progress" style="margin-top:8px;font-size:0.95rem;opacity:0.9;"></div>
 <div id="active-span" style="margin-top:8px;font-size:0.95rem;opacity:0.85;"></div>
 <div id="booking-alerts" style="margin-top:8px;font-size:0.9rem;opacity:0.85;"></div>
 <div id="timezone-display" style="margin-top:8px;font-size:0.9rem;opacity:0.85;"></div>
@@ -2228,6 +2229,9 @@ if ('serviceWorker' in navigator) {
     const today = fmt(now);
     const tomorrow = fmt(new Date(now.getTime() + 86400000));
     const tripStart = itinerary.length ? itinerary.map(i => i.date).sort()[0] : today;
+    const allEndDates = itinerary.map(i => i.endDate).filter(Boolean);
+    const allDatesForEnd = itinerary.map(i => i.date).concat(allEndDates);
+    const tripEnd = allDatesForEnd.length ? allDatesForEnd.sort()[allDatesForEnd.length - 1] : today;
     const inRange = (d, start, end) => d >= start && d <= end;
     const spanItems = itinerary.filter(i => i.endDate);
     const todaySpan = spanItems.find(i => inRange(today, i.date, i.endDate)) || null;
@@ -2272,6 +2276,19 @@ if ('serviceWorker' in navigator) {
     set('today-content', todayItem ? `${todayItem.title}<br><small>${todayItem.date}</small>${(cruiseDay || spanLabel) ? '<br><em>' + (cruiseDay || spanLabel) + '</em>' : ''}${todayLine ? '<br><span style="font-size:0.85rem;opacity:0.8;">' + todayLine + '</span>' : ''}${portLine(portByDate[today])}${evtLine(today)}${window.bookingLink(today)}` : 'No trip scheduled today');
     set('tomorrow-content', tomorrowItem ? `${tomorrowItem.title}<br><small>${tomorrowItem.date}</small>${portLine(portByDate[tomorrow])}${evtLine(tomorrow)}${window.bookingLink(tomorrow)}` : 'No trip scheduled tomorrow');
     const activeSpan = document.getElementById('active-span');
+    const daysProgress = document.getElementById('days-progress');
+    if (daysProgress) {
+      const totalDays = Math.round((new Date(tripEnd+'T00:00:00') - new Date(tripStart+'T00:00:00')) / 86400000) + 1;
+      if (today < tripStart) {
+        daysProgress.innerHTML = `${totalDays}-day trip`;
+      } else if (today > tripEnd) {
+        daysProgress.innerHTML = `Trip complete · ${totalDays} days`;
+      } else {
+        const daysIn = Math.round((new Date(today+'T00:00:00') - new Date(tripStart+'T00:00:00')) / 86400000) + 1;
+        const daysRemaining = totalDays - daysIn;
+        daysProgress.innerHTML = `Day ${daysIn} of ${totalDays} &middot; ${daysRemaining} day${daysRemaining === 1 ? '' : 's'} remaining`;
+      }
+    }
     if (activeSpan) {
       if (today < tripStart) {
         var dts = Math.ceil((new Date(tripStart+'T00:00:00') - new Date(today+'T00:00:00'))/86400000);
